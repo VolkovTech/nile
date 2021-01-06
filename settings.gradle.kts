@@ -1,2 +1,2 @@
-rootProject.name = "spring-boot-application"
-include("spring-boot-application")
+rootProject.name = "nile"
+include("nile-micrometer", "nile-anomaly", "nile-grafana", "nile-application")
