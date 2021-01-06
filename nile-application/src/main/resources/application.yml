@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: nile-application
+
+server:
+  servlet:
+    context-path: /${spring.application.name}
