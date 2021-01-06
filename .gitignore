@@ -34,3 +34,11 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# docker grafana
+.docker/grafana/plugins
+.docker/grafana/png
+.docker/grafana/grafana.db
+
+# docker prometheus
+.docker/prometheus/data
