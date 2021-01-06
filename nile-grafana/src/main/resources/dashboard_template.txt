@@ -1,0 +1,32 @@
+{
+    "dashboard": {
+        "id": null,
+        "uid": "RQGKsU3Gz",
+        "title": "%s",
+        "tags": [
+            "templated"
+        ],
+        "timezone": "browser",
+        "schemaVersion": 27,
+        "version": 0,
+        "editable": true,
+        "gnetId": null,
+        "graphTooltip": 0,
+        "iteration": 1622077473023,
+        "links": [],
+        "panels": [%s],
+        "style": "dark",
+        "templating": {
+          "list": [%s]
+        },
+        "time": {
+            "from": "now-5m",
+            "to": "now"
+        },
+        "timepicker": {}
+        },
+        "folderId": 0,
+        "message": "Created a dashboard",
+        "overwrite": false
+    }
+}

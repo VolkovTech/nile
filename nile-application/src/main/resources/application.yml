@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: nile-application
+
+server:
+  servlet:
+    context-path: /${spring.application.name}
+
+weather:
+  base-url: https://api.openweathermap.org/data/2.5/weather
+  api-key: dfa9c4bfd52d6549908a828e0cec63b0
+  requests-limit-per-minute: 60
+  cities:
+    - Moscow
+    - Berlin
+    - Paris
+    - London
+    - Rome
+    - Barcelona
+    - Washington
+    - Ottawa
+    - Beijing
+    - Canberra
+
+nile:
+  grafana:
+    api-key: eyJrIjoieHZDVldpODE2U1BTMXJ5U1hGOWtQaUY3ZG5lV2NzT20iLCJuIjoibWFpbiIsImlkIjoxfQ==
+
+management:
+  endpoints.web.exposure.include: '*'
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+    tags:
+      application: ${spring.application.name}
+
+logging:
+  level:
+    tech.volkov.nile: debug
