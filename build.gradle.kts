@@ -20,14 +20,14 @@ allprojects {
 			jvmTarget = "1.8"
 		}
 	}
-
-	tasks.withType<Test> {
-		useJUnitPlatform()
-	}
 }
 
 subprojects {
 	repositories {
 		mavenCentral()
+	}
+
+	tasks.withType<Test> {
+		useJUnitPlatform()
 	}
 }
