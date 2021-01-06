@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  grafana:
+    image: grafana/grafana:7.4.3
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=password
+    networks:
+      monitoring:
+        aliases:
+          - grafana
+  prometheus:
+    image: prom/prometheus:v2.25.0
+    ports:
+      - 4000:4000
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus:/prometheus
+    command: --config.file=/etc/prometheus/prometheus.yml --log.level=debug
+    networks:
+      monitoring:
+        aliases:
+          - prometheus
+networks:
+  monitoring:
