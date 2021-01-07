@@ -15,7 +15,7 @@ class MetricContext(
     /**
      * Scrape interval in sec, how often the metric should be updated
      */
-    var scrapeInterval: Int,
+    var scrapeInterval: Long,
     /**
      * The function, by which the metric value will be extracted
      */

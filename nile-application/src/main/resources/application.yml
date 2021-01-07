@@ -5,3 +5,12 @@ spring:
 server:
   servlet:
     context-path: /${spring.application.name}
+
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+
+logging:
+  level:
+    tech.volkov.nilecore: debug
