@@ -7,9 +7,10 @@ server:
     context-path: /${spring.application.name}
 
 management:
-  endpoint:
-    shutdown:
-      enabled: true
+  endpoints.web.exposure.include: '*'
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
 logging:
   level:

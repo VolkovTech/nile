@@ -11,6 +11,7 @@ dependencies {
 
     // logger
     implementation("io.github.microutils:kotlin-logging:2.0.4")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1")
 
     testImplementation("io.kotest:kotest-runner-junit5-jvm:4.3.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api")

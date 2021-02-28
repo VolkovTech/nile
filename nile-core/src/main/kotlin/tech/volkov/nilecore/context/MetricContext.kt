@@ -1,6 +1,7 @@
 package tech.volkov.nilecore.context
 
 import tech.volkov.nilecore.annotation.MetricDSL
+import java.time.Duration
 
 @MetricDSL
 class MetricContext(
@@ -13,11 +14,21 @@ class MetricContext(
      */
     var description: String,
     /**
-     * Scrape interval in sec, how often the metric should be updated
+     * [MetricParametersContext] object that represents metric parameters
      */
-    var scrapeInterval: Long,
+    var metricParametersContext: MetricParametersContext
+)
+
+class MetricParametersContext {
+    /**
+     * Scrape interval, how often the metric should be updated
+     */
+    var scrapeInterval: Duration = Duration.ofSeconds(15)
     /**
      * The function, by which the metric value will be extracted
      */
-    var value: () -> Double?
-)
+    var value: () -> Double? = { 0.0 }
+        private set
+
+    fun value(block: () -> Double?) { value = block }
+}

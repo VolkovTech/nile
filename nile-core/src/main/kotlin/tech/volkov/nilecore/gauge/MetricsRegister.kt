@@ -7,9 +7,12 @@ import tech.volkov.nilecore.context.MetricContext
 
 class MetricsRegister {
 
+    private val gaugeMetricMap = mutableMapOf<MetricContext, Double>()
+
     fun extractValueAndRegisterMetric(metricContext: MetricContext) = with(metricContext) {
-        val metricValue = value()
-        registerGaugeMetric(name, description, value = metricValue)
+        val metricValue = metricParametersContext.value()
+        gaugeMetricMap[this] = metricValue ?: 0.0
+        registerGaugeMetric(name, description, metricContext = this)
         logger.debug { "Updated metric [$name] with value [$metricValue]" }
     }
 
@@ -17,9 +20,9 @@ class MetricsRegister {
         metricName: String,
         description: String,
         tags: Map<String, String> = emptyMap(),
-        value: Double?
+        metricContext: MetricContext
     ) {
-        Gauge.builder(metricName) { value ?: 0.0 }
+        Gauge.builder(metricName, gaugeMetricMap) { gaugeMetricMap[metricContext] ?: 0.0 }
             .also { tags.forEach { (tagName, tagValue) -> it.tag(tagName, tagValue) } }
             .description(description)
             .register(Metrics.globalRegistry)

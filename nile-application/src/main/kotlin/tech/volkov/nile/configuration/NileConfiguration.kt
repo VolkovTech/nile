@@ -8,5 +8,5 @@ import tech.volkov.nilecore.builder.Nile
 class NileConfiguration {
 
     @Bean
-    fun nile() = Nile.builder()
+    fun nile() = Nile.builder().build()
 }

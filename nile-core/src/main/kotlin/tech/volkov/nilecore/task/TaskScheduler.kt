@@ -19,8 +19,8 @@ class TaskScheduler(
         scheduler.scheduleAtFixedRate(
             { metricsRegister.extractValueAndRegisterMetric(metricContext) },
             0,
-            metricContext.scrapeInterval,
-            TimeUnit.SECONDS
+            metricContext.metricParametersContext.scrapeInterval.toMillis(),
+            TimeUnit.MILLISECONDS
         )
     }
 

@@ -1,6 +1,7 @@
 package tech.volkov.nilecore.builder
 
 import tech.volkov.nilecore.context.MetricContext
+import tech.volkov.nilecore.context.MetricParametersContext
 import tech.volkov.nilecore.gauge.MetricsRegister
 import tech.volkov.nilecore.task.TaskScheduler
 
@@ -10,7 +11,13 @@ class Nile {
     private val taskScheduler = TaskScheduler(metricsRegister)
 
     companion object {
-        fun builder() = Nile()
+        fun builder() = Builder()
+
+        class Builder {
+            fun build(): Nile {
+                return Nile()
+            }
+        }
     }
 
     /**
@@ -19,8 +26,7 @@ class Nile {
     fun metric(
         name: String,
         description: String = "",
-        scrapeInterval: Long = 15,
-        value: () -> Double? = { 0.0 }
-    ) = MetricContext(name, description, scrapeInterval, value)
+        init: MetricParametersContext.() -> Unit
+    ) = MetricContext(name, description, MetricParametersContext().apply(init))
         .also { taskScheduler.schedule(it) }
 }
