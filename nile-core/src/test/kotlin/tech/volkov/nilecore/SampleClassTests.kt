@@ -1,5 +1,3 @@
 package tech.volkov.nilecore
 
-class SampleClassTests {
-
-}
+class SampleClassTests

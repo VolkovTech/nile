@@ -15,9 +15,9 @@ companies.
 
 `nile-grafana` - tools for use *grafana as a code* approach and contain all grafana configuration in code
 
-## Installing
+## Dependency
 
-#### Gradle
+#### Gradle (.kts)
 
 ```kotlin
 val nileVersion = "0.0.1"
