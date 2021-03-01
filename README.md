@@ -15,6 +15,13 @@ companies.
 
 `nile-grafana` - tools for use *grafana as a code* approach and contain all grafana configuration in code
 
+Table of contents
+
+- [Dependency](#Dependency)
+- [Example of usage](#Example of usage)
+    - Counter
+    - Timer
+
 ## Dependency
 
 #### Gradle (.kts)
@@ -53,4 +60,10 @@ implementation(group = "tech.volkov.nile", name = "nile-grafana", version = nile
     <version>0.0.1</version>
   </dependency>
 </dependencies>
+```
+
+## Example of usage
+
+```kotlin
+
 ```
