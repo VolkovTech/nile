@@ -79,9 +79,6 @@ subprojects {
         implementation(Spring.contextSupport)
         implementation(Spring.Boot.starterWebServices)
         implementation(Spring.Boot.starterActuator)
-        implementation(Spring.Cloud.starterVaultConfig)
-        implementation(Spring.Cloud.starterConsulConfig)
-        implementation(Spring.Cloud.starterConsulDiscovery)
 
         runtimeOnly(Common.Libraries.Metrics.micrometer)
 

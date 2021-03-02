@@ -33,7 +33,7 @@ object Spring {
     const val dependencyManagement = "io.spring.dependency-management"
 
     object Cloud {
-        const val version = "Hoxton.SR10"
+        const val version = "2020.0.0"
         const val group = "${Spring.group}.cloud"
         const val dependencies = "$group:spring-cloud-dependencies:$version"
         const val starterVaultConfig = "$group:spring-cloud-starter-vault-config"
