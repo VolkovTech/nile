@@ -7,13 +7,13 @@
 Nile project - is an open-source project, monitoring system, analysis of anomalies and timely warning for modern IT
 companies.
 
-`nile-core` - basic functions and utils for building `Gauge Counter` & `Gauge Timer` metrics
-
-`nile-scheduler` - tools for scheduled metrics
+`nile-micrometer` - basic functions and utils for building `Gauge Counter` & `Gauge Timer` metrics
 
 `nile-anomaly` - tools for anomaly analyzing, exporting anomaly metrics
 
-`nile-grafana` - tools for use *grafana as a code* approach and contain all grafana configuration in code
+`nile-grafana` - implementation of *grafana as a code* approach containing all grafana configuration in code
+
+`nile-application` - contains example project of nile
 
 Table of contents
 
@@ -29,8 +29,7 @@ Table of contents
 ```kotlin
 val nileVersion = "0.0.1"
 
-implementation(group = "tech.volkov.nile", name = "nile-core", version = nileVersion)
-implementation(group = "tech.volkov.nile", name = "nile-scheduler", version = nileVersion)
+implementation(group = "tech.volkov.nile", name = "nile-micrometer", version = nileVersion)
 implementation(group = "tech.volkov.nile", name = "nile-anomaly", version = nileVersion)
 implementation(group = "tech.volkov.nile", name = "nile-grafana", version = nileVersion)
 ```
@@ -41,12 +40,7 @@ implementation(group = "tech.volkov.nile", name = "nile-grafana", version = nile
 <dependencies>
   <dependency>
     <groupId>tech.volkov.nile</groupId>
-    <artifactId>nile-core</artifactId>
-    <version>0.0.1</version>
-  </dependency>
-  <dependency>
-    <groupId>tech.volkov.nile</groupId>
-    <artifactId>nile-scheduler</artifactId>
+    <artifactId>nile-micrometer</artifactId>
     <version>0.0.1</version>
   </dependency>
   <dependency>

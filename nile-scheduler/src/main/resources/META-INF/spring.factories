@@ -1,3 +1,0 @@
-#org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-#  tech.volkov.nilescheduler.configuration.TaskSchedulerConfiguration,\
-#  tech.volkov.nilescheduler.configuration.NileThreadPoolProperties

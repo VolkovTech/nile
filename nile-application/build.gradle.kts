@@ -7,7 +7,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":nile-core"))
+    implementation(project(":nile-micrometer"))
 
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
