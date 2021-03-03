@@ -18,7 +18,7 @@ companies.
 Table of contents
 
 - [Dependency](#Dependency)
-- [Example of usage](#Example of usage)
+- [Example of usage](#example-of-usage)
     - Counter
     - Timer
 
@@ -56,6 +56,7 @@ implementation(group = "tech.volkov.nile", name = "nile-grafana", version = nile
 </dependencies>
 ```
 
+<a href="#example-of-usage"></a>
 ## Example of usage
 
 ```kotlin
