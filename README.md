@@ -60,24 +60,24 @@ implementation(group = "tech.volkov.nile", name = "nile-grafana", version = nile
 </dependencies>
 ```
 
-<a name="#example-of-usage"></a>
+<a name="example-of-usage"></a>
 ## Example of usage
 
-<a name="#nile-micrometer-configuration"></a>
+<a name="nile-micrometer-configuration"></a>
 ### Configuration
 
 ```kotlin
 
 ```
 
-<a name="#nile-micrometer-counter"></a>
+<a name="nile-micrometer-counter"></a>
 ### Counter
 
 ```kotlin
 
 ```
 
-<a name="#nile-micrometer-timer"></a>
+<a name="nile-micrometer-timer"></a>
 ### Timer
 
 ```kotlin
