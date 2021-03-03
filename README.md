@@ -20,9 +20,9 @@ Table of contents
 - [Dependency](#Dependency)
 - [Example of usage](#example-of-usage)
     - `nile-micrometer`
-      - Configuration
-      - Counter
-      - Timer
+      - [Configuration](#nile-micrometer-configuration)
+      - [Counter](#nile-micrometer-counter)
+      - [Timer](#nile-micrometer-timer)
     - `nile-anomaly`
     - `nile-grafana`
 
@@ -63,18 +63,21 @@ implementation(group = "tech.volkov.nile", name = "nile-grafana", version = nile
 <a href="#example-of-usage"></a>
 ## Example of usage
 
+<a href="#nile-micrometer-configuration"></a>
 ### Configuration
 
 ```kotlin
 
 ```
 
+<a href="#nile-micrometer-counter"></a>
 ### Counter
 
 ```kotlin
 
 ```
 
+<a href="#nile-micrometer-timer"></a>
 ### Timer
 
 ```kotlin
