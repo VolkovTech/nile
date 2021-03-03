@@ -19,8 +19,12 @@ Table of contents
 
 - [Dependency](#Dependency)
 - [Example of usage](#example-of-usage)
-    - Counter
-    - Timer
+    - `nile-micrometer`
+      - Configuration
+      - Counter
+      - Timer
+    - `nile-anomaly`
+    - `nile-grafana`
 
 ## Dependency
 
@@ -58,6 +62,20 @@ implementation(group = "tech.volkov.nile", name = "nile-grafana", version = nile
 
 <a href="#example-of-usage"></a>
 ## Example of usage
+
+### Configuration
+
+```kotlin
+
+```
+
+### Counter
+
+```kotlin
+
+```
+
+### Timer
 
 ```kotlin
 
