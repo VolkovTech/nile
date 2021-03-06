@@ -1,5 +1,6 @@
 package tech.volkov.nile.application
 
+import org.springframework.boot.Banner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 import org.springframework.boot.runApplication
@@ -10,5 +11,7 @@ import org.springframework.boot.runApplication
 class NileApplication
 
 fun main(args: Array<String>) {
-    runApplication<NileApplication>(*args)
+    runApplication<NileApplication>(*args) {
+        setBannerMode(Banner.Mode.OFF)
+    }
 }

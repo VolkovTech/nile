@@ -10,7 +10,7 @@ class MetricsRegister {
     private val gaugeMetricMap = mutableMapOf<MetricContext, Double>()
 
     fun extractValueAndRegisterMetric(metricContext: MetricContext) = with(metricContext) {
-        val metricValue = metricParametersContext.value()
+        val metricValue = value()
         gaugeMetricMap[this] = metricValue ?: 0.0
         registerGaugeMetric(name, description, metricContext = this)
         logger.debug { "Updated metric [$name] with value [$metricValue]" }

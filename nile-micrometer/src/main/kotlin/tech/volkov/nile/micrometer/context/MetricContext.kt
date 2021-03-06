@@ -14,21 +14,11 @@ class MetricContext(
      */
     var description: String,
     /**
-     * [MetricParametersContext] object that represents metric parameters
-     */
-    var metricParametersContext: MetricParametersContext
-)
-
-class MetricParametersContext {
-    /**
      * Scrape interval, how often the metric should be updated
      */
-    var scrapeInterval: Duration? = null
+    var scrapeInterval: Duration? = null,
     /**
      * The function, by which the metric value will be extracted
      */
     var value: () -> Double? = { 0.0 }
-        private set
-
-    fun value(block: () -> Double?) { value = block }
-}
+)
