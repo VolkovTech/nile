@@ -21,7 +21,7 @@ class Nile private constructor(
     corePoolSize: Int,
     /**
      * The time interval between each metrics collection, this value is used
-     * in case no [MetricContext.metricParametersContext.scrapeInterval] is specified.
+     * in case no [MetricParametersContext.scrapeInterval] is specified.
      *
      * Default value is [DEFAULT_SCRAPE_INTERVAL].
      */
