@@ -14,8 +14,8 @@ class NileMetricsController(
     private val nile: Nile
 ) {
 
-    @GetMapping("increment")
-    fun incrementMetric(): MetricDto {
+    @GetMapping("schedule")
+    fun scheduleMetric(): MetricDto {
         val metric = nile.metric(
             name = "random_number",
             description = "Returns random number between 0 to 9"
@@ -27,10 +27,10 @@ class NileMetricsController(
 
         return with(metric) {
             MetricDto(
-                name,
-                description,
-                metricParametersContext.scrapeInterval.toMillis(),
-                metricParametersContext.value() ?: 0.0
+                name = name,
+                description = description,
+                scrapeInterval = metricParametersContext.scrapeInterval,
+                sampleValue = metricParametersContext.value()
             )
         }
     }

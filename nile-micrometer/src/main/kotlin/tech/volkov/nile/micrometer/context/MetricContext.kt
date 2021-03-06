@@ -23,7 +23,7 @@ class MetricParametersContext {
     /**
      * Scrape interval, how often the metric should be updated
      */
-    var scrapeInterval: Duration = Duration.ofSeconds(15)
+    var scrapeInterval: Duration? = null
     /**
      * The function, by which the metric value will be extracted
      */
