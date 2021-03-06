@@ -50,12 +50,14 @@ class Nile private constructor(
             }
 
             fun build() = Nile(corePoolSize, defaultScrapeInterval)
-                .also { logger.info { "Nile configured with properties: \n\n$this" } }
+                .also { logger.info { "Nile configured with properties: $this" } }
 
-            override fun toString() = buildString {
-                appendLine("scheduler.core.pool.size: $corePoolSize")
-                appendLine("default.scrape.interval: $defaultScrapeInterval")
-            }
+            override fun toString() = listOf(
+                "scheduler.core.pool.size: $corePoolSize",
+                "default.scrape.interval: $defaultScrapeInterval"
+            )
+                .joinToString()
+                .let { "[$it]" }
         }
     }
 
