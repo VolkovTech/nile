@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.util.UriComponentsBuilder
 import tech.volkov.nile.application.dto.MetricDto
-import tech.volkov.nile.micrometer.builder.NileMicrometer
-import tech.volkov.nile.micrometer.timer.withTimer
+import tech.volkov.nile.micrometer.scheduler.NileScheduler
+import tech.volkov.nile.micrometer.metric.withTimer
 import java.time.Duration
 import kotlin.random.Random
 
 @RestController
 @RequestMapping("/metrics")
 class NileMetricsController(
-    private val nileMicrometer: NileMicrometer,
+    private val nileScheduler: NileScheduler,
     private val webClient: WebClient
 ) {
 
@@ -50,7 +50,7 @@ class NileMetricsController(
 
     @GetMapping("schedule")
     fun scheduleMetric(): MetricDto {
-        val metric = nileMicrometer.scheduledMetric(
+        val metricContext = nileScheduler.scheduledMetric(
             name = "random_number",
             description = "Returns random number between 0 to 9",
             scrapeInterval = Duration.ofSeconds(5)
@@ -58,7 +58,7 @@ class NileMetricsController(
             Random.nextDouble(10.0)
         }
 
-        return with(metric) {
+        return with(metricContext) {
             MetricDto(
                 name = name,
                 description = description,

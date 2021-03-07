@@ -1,4 +1,4 @@
-package tech.volkov.nile.micrometer.timer
+package tech.volkov.nile.micrometer.metric
 
 import io.micrometer.core.instrument.Metrics
 import io.micrometer.core.instrument.Timer

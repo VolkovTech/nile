@@ -19,7 +19,7 @@ object Kotlin {
     const val noArgId = "plugin.noarg"
 
     const val logging = "io.github.microutils:kotlin-logging:2.0.4"
-    const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
+    const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
 }
 
 object Detect {

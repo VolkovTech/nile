@@ -5,7 +5,7 @@
 # Nile Project
 
 Nile project - is an open-source project, monitoring system, analysis of anomalies and timely warning for modern IT
-companies.
+companies. Light-weight kotlin library, using coroutines.
 
 `nile-micrometer` - basic functions and utils for building `Gauge Counter` & `Gauge Timer` metrics
 
