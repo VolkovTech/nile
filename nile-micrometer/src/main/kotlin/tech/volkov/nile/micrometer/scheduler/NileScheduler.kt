@@ -5,6 +5,9 @@ import tech.volkov.nile.micrometer.context.MetricContext
 import tech.volkov.nile.micrometer.executor.NileExecutor
 import tech.volkov.nile.micrometer.gauge.MetricsRegister
 import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_CORE_POOL_SIZE
+import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_KEEP_ALIVE_TIME
+import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_MAXIMUM_POOL_SIZE
+import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_QUEUE_CAPACITY
 import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_SCRAPE_INTERVAL
 import tech.volkov.nile.micrometer.task.TaskScheduler
 import java.time.Duration
@@ -19,8 +22,25 @@ class NileScheduler private constructor(
      * Default value is [DEFAULT_CORE_POOL_SIZE].
      */
     corePoolSize: Int,
+    /**
+     * The maximum number of threads to allow in coroutines thread pool.
+     *
+     * Default value is [DEFAULT_MAXIMUM_POOL_SIZE].
+     */
     maximumPoolSize: Int,
+    /**
+     * When the number of threads is greater than the core, this is the maximum time
+     * that excess idle threads will wait for new tasks before terminating.
+     *
+     * Default value is [DEFAULT_KEEP_ALIVE_TIME].
+     */
     keepAliveTime: Long,
+    /**
+     * The queue to use for holding tasks before they are executed.
+     * This queue will hold only the Runnable tasks submitted by the execute method.
+     *
+     * Default value is [DEFAULT_QUEUE_CAPACITY].
+     */
     queueCapacity: Int,
     /**
      * The time interval between each metrics collection, this value is used
@@ -31,9 +51,10 @@ class NileScheduler private constructor(
     defaultScrapeInterval: Duration
 ) {
 
-    private var metricsRegister: MetricsRegister = MetricsRegister()
-    private var nileExecutor = NileExecutor(corePoolSize, maximumPoolSize, keepAliveTime, queueCapacity)
-    private var taskScheduler: TaskScheduler = TaskScheduler(nileExecutor, defaultScrapeInterval, metricsRegister)
+    init {
+        NileExecutor(corePoolSize, maximumPoolSize, keepAliveTime, queueCapacity)
+            .also { TaskScheduler(it, defaultScrapeInterval, MetricsRegister()) }
+    }
 
     companion object : KLogging() {
         private const val DEFAULT_CORE_POOL_SIZE = 4

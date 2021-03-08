@@ -15,13 +15,17 @@ data class MetricContext(
      * Metric description, will be exposed to prometheus endpoint
      */
     var description: String,
-
+    /**
+     *
+     */
     var tags: Map<String, String> = emptyMap(),
     /**
      * Scrape interval, how often the metric should be updated
      */
     var scrapeInterval: Duration? = null,
-
+    /**
+     *
+     */
     var nextScrapeInterval: LocalDateTime = LocalDateTime.now(),
     /**
      * The function, by which the metric value will be extracted

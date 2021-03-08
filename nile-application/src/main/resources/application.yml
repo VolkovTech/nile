@@ -14,4 +14,4 @@ management:
 
 logging:
   level:
-    tech.volkov.nilecore: debug
+    tech.volkov.nile: debug

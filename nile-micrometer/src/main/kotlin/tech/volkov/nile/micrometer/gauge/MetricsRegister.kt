@@ -7,22 +7,20 @@ import tech.volkov.nile.micrometer.context.MetricContext
 
 class MetricsRegister {
 
-    private val gaugeMetricMap = mutableMapOf<MetricContext, Double>()
+    private val gaugeMetricMap = mutableMapOf<String, Double>()
 
     fun extractValueAndRegisterMetric(metricContext: MetricContext) = with(metricContext) {
-        val metricValue = value()
-        gaugeMetricMap[this] = metricValue ?: 0.0
-        registerGaugeMetric(name, description, metricContext = this)
-        logger.debug { "Updated metric [$name] with value [$metricValue]" }
+        value().let { gaugeMetricMap[name] = it ?: 0.0 }
+            .also { registerGaugeMetric(name, description) }
+            .also { logger.debug { "Updated metric [$name] with value [$it]" } }
     }
 
     private fun registerGaugeMetric(
         metricName: String,
         description: String,
-        tags: Map<String, String> = emptyMap(),
-        metricContext: MetricContext
+        tags: Map<String, String> = emptyMap()
     ) {
-        Gauge.builder(metricName, gaugeMetricMap) { gaugeMetricMap[metricContext] ?: 0.0 }
+        Gauge.builder(metricName, gaugeMetricMap) { it[metricName] ?: 0.0 }
             .also { tags.forEach { (tagName, tagValue) -> it.tag(tagName, tagValue) } }
             .description(description)
             .register(Metrics.globalRegistry)
