@@ -11,8 +11,8 @@ class MetricsRegister {
 
     fun extractValueAndRegisterMetric(metricContext: MetricContext) = with(metricContext) {
         value().let { gaugeMetricMap[name] = it ?: 0.0 }
-            .also { registerGaugeMetric(name, description) }
-            .also { logger.debug { "Updated metric [$name] with value [$it]" } }
+            .let { registerGaugeMetric(name, description) }
+            .let { logger.debug { "Updated metric [$name] with value [$it]" } }
     }
 
     private fun registerGaugeMetric(
