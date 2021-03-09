@@ -11,7 +11,7 @@ class MetricsRegister {
 
     fun extractValueAndRegisterMetric(metricContext: MetricContext) = with(metricContext) {
         value().let { gaugeMetricMap[name] = it ?: 0.0 }
-            .let { registerGaugeMetric(name, description) }
+            .run { registerGaugeMetric(name, description) }
             .let { logger.debug { "Updated metric [$name] with value [$it]" } }
     }
 
@@ -19,12 +19,11 @@ class MetricsRegister {
         metricName: String,
         description: String,
         tags: Map<String, String> = emptyMap()
-    ) {
-        Gauge.builder(metricName, gaugeMetricMap) { it[metricName] ?: 0.0 }
-            .also { tags.forEach { (tagName, tagValue) -> it.tag(tagName, tagValue) } }
-            .description(description)
-            .register(Metrics.globalRegistry)
-    }
+    ) = Gauge.builder(metricName, gaugeMetricMap) { it[metricName] ?: 0.0 }
+        .also { tags.forEach { (tagName, tagValue) -> it.tag(tagName, tagValue) } }
+        .description(description)
+        .register(Metrics.globalRegistry)
+        .value()
 
     companion object : KLogging()
 }

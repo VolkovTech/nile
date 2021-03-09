@@ -113,20 +113,23 @@ random_number{application="nile-application",} 5.295077022881081
 ### Timer
 
 ```kotlin
-withTimer(
-    metricName = "cat_fact",
-    description = "Time to execute call to cat fact API"
-) {
-    webClient
-        .get()
-        .uri {
-            UriComponentsBuilder.fromHttpUrl("https://catfact.ninja")
-                .pathSegment("fact")
-                .build()
-                .toUri()
-        }
-        .exchangeToMono { it.toEntity(CatFact::class.java) }
-        .block()
+fun getCatFact(): CatFact? {
+    withTimer(
+        metricName = "cat_fact",
+        description = "Time to execute call to cat fact API"
+    ) {
+        webClient
+            .get()
+            .uri {
+                UriComponentsBuilder.fromHttpUrl("https://catfact.ninja")
+                    .pathSegment("fact")
+                    .build()
+                    .toUri()
+            }
+            .exchangeToMono { it.toEntity(CatFact::class.java) }
+            .block()
+            .body
+    }
 }
 ```
 
