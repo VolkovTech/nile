@@ -116,7 +116,7 @@ class NileScheduler private constructor(
     /**
      * Builder for [MetricContext]
      */
-    fun scheduledMetric(
+    fun scheduleMetric(
         name: String,
         description: String = "",
         scrapeInterval: Duration? = null,

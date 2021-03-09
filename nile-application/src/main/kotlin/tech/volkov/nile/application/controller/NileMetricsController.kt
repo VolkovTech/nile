@@ -50,7 +50,7 @@ class NileMetricsController(
 
     @GetMapping("schedule")
     fun scheduleMetric(): MetricDto {
-        val metricContext = nileScheduler.scheduledMetric(
+        val metricContext = nileScheduler.scheduleMetric(
             name = "random_number",
             description = "Returns random number between 0 to 9",
             scrapeInterval = Duration.ofSeconds(5)
