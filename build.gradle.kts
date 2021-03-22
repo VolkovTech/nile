@@ -84,6 +84,11 @@ subprojects {
 
         implementation(Common.jacksonModuleKotlin)
 
+        // annotation processing
+        implementation(group = "com.squareup", name = "kotlinpoet", version = "1.7.2")
+        implementation(group = "com.google.auto.service", name = "auto-service", version = "1.0-rc7")
+        kapt(group = "com.google.auto.service", name = "auto-service", version = "1.0-rc7")
+
         Common.Libraries.Swagger.dependencies.forEach { implementation(it) }
 
         // utils
