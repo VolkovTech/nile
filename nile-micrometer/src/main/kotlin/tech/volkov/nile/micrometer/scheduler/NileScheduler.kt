@@ -1,15 +1,13 @@
 package tech.volkov.nile.micrometer.scheduler
 
 import mu.KLogging
-import tech.volkov.nile.micrometer.context.MetricContext
 import tech.volkov.nile.micrometer.executor.NileExecutor
-import tech.volkov.nile.micrometer.gauge.MetricsRegister
 import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_CORE_POOL_SIZE
 import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_KEEP_ALIVE_TIME
 import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_MAXIMUM_POOL_SIZE
 import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_QUEUE_CAPACITY
-import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_SCRAPE_INTERVAL
 import tech.volkov.nile.micrometer.task.TaskScheduler
+import tech.volkov.nile.micrometer.util.DEFAULT_SCRAPE_INTERVAL
 import java.time.Duration
 
 class NileScheduler private constructor(
@@ -44,7 +42,7 @@ class NileScheduler private constructor(
     queueCapacity: Int,
     /**
      * The time interval between each metrics collection, this value is used
-     * in case no [MetricContext.scrapeInterval] is specified.
+     * in case no [tech.volkov.nile.micrometer.registry.NileScheduledTask.scrapeInterval] is specified.
      *
      * Default value is [DEFAULT_SCRAPE_INTERVAL].
      */
@@ -53,7 +51,7 @@ class NileScheduler private constructor(
 
     init {
         NileExecutor(corePoolSize, maximumPoolSize, keepAliveTime, queueCapacity)
-            .also { TaskScheduler(it, defaultScrapeInterval, MetricsRegister()) }
+            .also { TaskScheduler(it, defaultScrapeInterval) }
     }
 
     companion object : KLogging() {
@@ -61,7 +59,6 @@ class NileScheduler private constructor(
         private const val DEFAULT_MAXIMUM_POOL_SIZE = 6
         private const val DEFAULT_KEEP_ALIVE_TIME = 200L
         private const val DEFAULT_QUEUE_CAPACITY = 5
-        private val DEFAULT_SCRAPE_INTERVAL = Duration.ofMinutes(1)
 
         fun builder() = NileSchedulerBuilder()
 
@@ -112,15 +109,4 @@ class NileScheduler private constructor(
                 .let { "[$it]" }
         }
     }
-
-    /**
-     * Builder for [MetricContext]
-     */
-    fun scheduleMetric(
-        name: String,
-        description: String = "",
-        scrapeInterval: Duration? = null,
-        tags: Map<String, String> = emptyMap(),
-        value: () -> Double?
-    ) = MetricContext(name, description, tags, scrapeInterval, value = value).register()
 }

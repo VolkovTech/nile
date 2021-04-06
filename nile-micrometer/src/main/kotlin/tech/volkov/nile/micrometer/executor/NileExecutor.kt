@@ -14,7 +14,7 @@ class NileExecutor(
     corePoolSize: Int,
     maximumPoolSize: Int,
     keepAliveTime: Long,
-    queueCapacity: Int,
+    queueCapacity: Int
 ) {
 
     private val threadPoolExecutor = ThreadPoolExecutor(
@@ -26,13 +26,8 @@ class NileExecutor(
     )
         .also { ExecutorServiceMetrics(it, "nileThreadPoolExecutor", listOf()) }
 
-    private val scheduledExecutorService = Executors.newScheduledThreadPool(SINGLE_THREAD_POOL_SIZE)
-
-    private val coroutineScope = CoroutineScope(threadPoolExecutor.asCoroutineDispatcher() + SupervisorJob())
-
-    fun getScheduledExecutorService(): ScheduledExecutorService = scheduledExecutorService
-
-    fun getCoroutineScope() = coroutineScope
+    val scheduledExecutorService: ScheduledExecutorService = Executors.newScheduledThreadPool(SINGLE_THREAD_POOL_SIZE)
+    val coroutineScope = CoroutineScope(threadPoolExecutor.asCoroutineDispatcher() + SupervisorJob())
 
     companion object {
         private const val SINGLE_THREAD_POOL_SIZE = 1

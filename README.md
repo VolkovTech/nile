@@ -1,31 +1,35 @@
-![Maintaner](https://img.shields.io/badge/maintainer-VolkovTech-blue)
-[![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
-[![GitHub tag](https://img.shields.io/github/tag/Naereen/StrapDown.js.svg)](https://github.com/VolkovTech/nile/tags)
-
 # Nile Project
 
-Nile project - is an open-source project, monitoring system, analysis of anomalies and timely warning for modern IT
-companies. Light-weight kotlin library, using coroutines.
+Nile project - is a monitoring system, set of libraries, containing useful API for building, export, analyzing and visualizing business metrics of your Spring Java/Kotlin application. 
 
-`nile-micrometer` - basic functions and utils for building `Gauge Counter` & `Gauge Timer` metrics
+Nile project contains of 3 modules:
 
-`nile-anomaly` - tools for anomaly analyzing, exporting anomaly metrics
+[`nile-micrometer`](#nile-micrometer)
+  - building different types of business metrics (counter, timer, gauge, distribution summary)
+  - building database metrics via executing select queries
+  - collecting metrics by schedule
 
-`nile-grafana` - implementation of *grafana as a code* approach containing all grafana configuration in code
+[`nile-anomaly`](#nile-anomaly)
+  - analyzing business time series on anomalies
+  - exporting anomalies metrics
 
-`nile-application` - contains an example of using nile project
+[`nile-grafana`](#nile-grafana)
+  - Kotlin DSL for building grafana dashboards (*grafana as a code*)
+  - Grafana Dashboard management via Grafana API
 
-Table of contents
+Example of usage for all modules can be found in `nile-application` module.
+
+## Table of contents
 
 - [Dependency](#Dependency)
-- [Example of usage](#example-of-usage)
-    - `nile-micrometer`
-        - [Scheduler spring configuration](#nile-scheduler-spring-configuration)
-        - [Scheduled metric](#scheduled-metric)
-        - [Counter](#nile-micrometer-counter)
-        - [Timer](#nile-micrometer-timer)
-    - `nile-anomaly`
-    - `nile-grafana`
+- [Nile micrometer](#nile-micrometer)
+    - [Counter](#nile-micrometer-counter)
+    - [Timer](#nile-micrometer-timer)
+    - [Gauge](#nile-micrometer-gauge)
+    - [Distribution Summary](#nile-micrometer-distribution-summary)
+    - [Scheduled metric](#nile-micrometer-scheduled-metric)
+- [Nile anomaly](#nile-anomaly)
+- [Nile grafana](#nile-grafana)
 
 ## Dependency
 
@@ -62,14 +66,102 @@ implementation(group = "tech.volkov.nile", name = "nile-grafana", version = nile
 </dependencies>
 ```
 
-<a name="example-of-usage"></a>
+<a name="nile-micrometer"></a>
+## Nile Micrometer
 
-## Example of usage
+<a name="nile-micrometer-counter"></a>
+### Counter
 
-<a name="nile-scheduler-spring-configuration"></a>
+Increases micrometer counter each time when function calls  
 
-### Nile scheduler spring configuration
+*Function*
 
+```kotlin
+nileCounter(
+    name = "dog_facts_counter",
+    description = "Counts how many request were executed to dog facts API",
+    tags = mapOf("tagName" to "tagValue"),
+    isSuccess = isSuccess,
+    amount = { 10.0 }
+)
+```
+
+*Annotation*
+
+```kotlin
+@NileCounter(
+    name = "dog_facts_counter",
+    description = "Counts how many request were executed to dog facts API",
+    tags = ["tagName", "tagValue"],
+    amount = 10.0
+)
+fun getDogFacts() {
+    // getting dogs facts
+}
+```
+
+*Prometheus metrics*
+
+```
+
+```
+
+<a name="nile-micrometer-timer"></a>
+### Timer
+
+```kotlin
+val dogFactsResponse = nileTimer(
+    name = "dog_facts_timer",
+    description = "Response time for dog facts API",
+    tags = mapOf("tagName" to "tagValue"),
+    percentiles = listOf(0.5, 0.75, 0.9, 0.95, 0.99)
+) {    
+    getDogFacts(number)
+}
+```
+
+*Prometheus metrics*
+
+```
+# HELP cat_fact_seconds Time to execute call to cat fact API
+# TYPE cat_fact_seconds summary
+cat_fact_seconds_count{application="nile-application",status="OK",} 5.0
+cat_fact_seconds_sum{application="nile-application",status="OK",} 17.0398064
+# HELP cat_fact_seconds_max Time to execute call to cat fact API
+# TYPE cat_fact_seconds_max gauge
+cat_fact_seconds_max{application="nile-application",status="OK",} 7.1959512
+```
+
+<a name="nile-micrometer-gauge"></a>
+### Gauge
+
+```kotlin
+
+```
+
+*Prometheus metrics*
+
+```
+
+```
+
+<a name="nile-micrometer-distribution-summary"></a>
+### Distribution Summary
+
+```kotlin
+
+```
+
+*Prometheus metrics*
+
+```
+
+```
+
+<a name="nile-micrometer-scheduled-metric"></a>
+### Scheduled metric
+
+#### Nile Scheduler Spring Configuration
 ```kotlin
 @Configuration
 class NileConfiguration {
@@ -85,8 +177,7 @@ class NileConfiguration {
 }
 ```
 
-<a name="scheduled-metric"></a>
-### Scheduled metric
+#### Scheduled metric
 
 ```kotlin
 fun scheduleMetric(): MetricDto {
@@ -108,44 +199,9 @@ fun scheduleMetric(): MetricDto {
 random_number{application="nile-application",} 5.295077022881081
 ```
 
-### Counter
+<a name="nile-anomaly"></a>
+## Nile Anomaly
 
-<a name="nile-micrometer-counter"></a>
 
-
-<a name="nile-micrometer-timer"></a>
-
-### Timer
-
-```kotlin
-fun getCatFact(): CatFact? {
-    withTimer(
-        metricName = "cat_fact",
-        description = "Time to execute call to cat fact API"
-    ) {
-        webClient
-            .get()
-            .uri {
-                UriComponentsBuilder.fromHttpUrl("https://catfact.ninja")
-                    .pathSegment("fact")
-                    .build()
-                    .toUri()
-            }
-            .exchangeToMono { it.toEntity(CatFact::class.java) }
-            .block()
-            .body
-    }
-}
-```
-
-*Prometheus metrics*
-
-```
-# HELP cat_fact_seconds Time to execute call to cat fact API
-# TYPE cat_fact_seconds summary
-cat_fact_seconds_count{application="nile-application",status="OK",} 5.0
-cat_fact_seconds_sum{application="nile-application",status="OK",} 17.0398064
-# HELP cat_fact_seconds_max Time to execute call to cat fact API
-# TYPE cat_fact_seconds_max gauge
-cat_fact_seconds_max{application="nile-application",status="OK",} 7.1959512
-```
+<a name="nile-grafana"></a>
+## Nile Grafana

@@ -2,10 +2,9 @@ package tech.volkov.nile.micrometer.task
 
 import kotlinx.coroutines.launch
 import mu.KLogging
-import tech.volkov.nile.micrometer.context.MetricContext
 import tech.volkov.nile.micrometer.executor.NileExecutor
-import tech.volkov.nile.micrometer.gauge.MetricsRegister
-import tech.volkov.nile.micrometer.registry.NileRegistry.Companion.globalRegistry
+import tech.volkov.nile.micrometer.registry.NileScheduledRegistry.Companion.globalRegistry
+import tech.volkov.nile.micrometer.registry.NileScheduledTask
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
@@ -13,12 +12,11 @@ import java.util.concurrent.TimeUnit
 
 class TaskScheduler(
     private val nileExecutor: NileExecutor,
-    private val defaultScrapeInterval: Duration,
-    private val metricsRegister: MetricsRegister
+    private val defaultScrapeInterval: Duration
 ) {
 
     init {
-        nileExecutor.getScheduledExecutorService().scheduleAtFixedRate(
+        nileExecutor.scheduledExecutorService.scheduleAtFixedRate(
             { runUpdateMetrics() },
             0,
             UPDATE_PERIOD_IN_MILLIS,
@@ -27,19 +25,24 @@ class TaskScheduler(
     }
 
     private fun runUpdateMetrics() = globalRegistry.forEach {
-        nileExecutor.getCoroutineScope().launch { updateMetricIfNeeded(it.value) }
+        nileExecutor.coroutineScope.launch { updateMetricIfNeeded(it.value) }
     }
 
-    private fun updateMetricIfNeeded(metricContext: MetricContext) = with(metricContext) {
-        if (nextScrapeInterval.isBefore(LocalDateTime.now())) {
-            metricsRegister.extractValueAndRegisterMetric(metricContext)
-            globalRegistry[name]?.nextScrapeInterval = LocalDateTime.now()
-                .plus(scrapeIntervalInMillis(), ChronoUnit.MILLIS)
+    private fun updateMetricIfNeeded(nileScheduledTask: NileScheduledTask) = with(nileScheduledTask) {
+        if (nextScrapeTime.isBefore(LocalDateTime.now())) {
+            runCatching(block)
+                .also { logger.debug { "Updated metric [$name]" } }
+                .also { updateNextScrapeTime() }
+                .getOrThrow()
         }
     }
 
-    private fun MetricContext.scrapeIntervalInMillis() = scrapeInterval?.toMillis()
-        ?: defaultScrapeInterval.toMillis()
+    private fun NileScheduledTask.updateNextScrapeTime() {
+        nextScrapeTime = LocalDateTime.now().plus(
+            (scrapeInterval ?: defaultScrapeInterval).toMillis(),
+            ChronoUnit.MILLIS
+        )
+    }
 
     companion object : KLogging() {
         private const val UPDATE_PERIOD_IN_MILLIS = 1000L
