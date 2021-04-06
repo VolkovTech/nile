@@ -1,7 +1,7 @@
 plugins {
     id(Spring.Boot.group) version Spring.Boot.version
 
-    kotlinPlugins(Kotlin.jvmId, Kotlin.kaptId)
+    kotlinPlugins(Kotlin.jvmId, Kotlin.kaptId, Kotlin.spring)
     kotlinPlugin(Kotlin.allOpenId) apply false // provides kotlin-spring
     kotlinPlugin(Kotlin.noArgId) apply false // provides kotlin-jpa
 
@@ -80,16 +80,20 @@ subprojects {
         implementation(Spring.Boot.starterWebServices)
         implementation(Spring.Boot.starterActuator)
 
-        runtimeOnly(Common.Libraries.Metrics.micrometer)
+        runtimeOnly(Common.Metrics.micrometer)
 
         implementation(Common.jacksonModuleKotlin)
 
         // annotation processing
-        implementation(group = "com.squareup", name = "kotlinpoet", version = "1.7.2")
-        implementation(group = "com.google.auto.service", name = "auto-service", version = "1.0-rc7")
-        kapt(group = "com.google.auto.service", name = "auto-service", version = "1.0-rc7")
+        implementation(Spring.Boot.aop)
+        implementation(Common.Aspectj.aspectjweaver)
 
-        Common.Libraries.Swagger.dependencies.forEach { implementation(it) }
+        // webclient
+        implementation(Spring.Boot.webflux)
+        implementation(Common.reactorKotlinExtensions)
+
+        // open api
+        implementation(Common.openApi)
 
         // utils
         compileOnly(Spring.Boot.configurationProcessor)
@@ -99,7 +103,7 @@ subprojects {
         implementation(Common.logback)
 
         // test
-        Common.Libraries.Test.implementation.forEach { testImplementation(it) }
-        Common.Libraries.Test.runtime.forEach { testRuntimeOnly(it) }
+        Common.Test.implementation.forEach { testImplementation(it) }
+        Common.Test.runtime.forEach { testRuntimeOnly(it) }
     }
 }

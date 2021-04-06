@@ -91,7 +91,7 @@ complexity:
     threshold: 60
   LongParameterList:
     active: true
-    functionThreshold: 6
+    functionThreshold: 10
     constructorThreshold: 7
     ignoreDefaultParameters: false
     ignoreDataClasses: true
@@ -210,7 +210,7 @@ exceptions:
     active: false
   TooGenericExceptionCaught:
     active: true
-    excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
+    excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**', '**/Aspect/**']
     exceptionNames:
      - ArrayIndexOutOfBoundsException
      - Error
@@ -636,7 +636,7 @@ style:
     active: false
     acceptableDecimalLength: 5
   UnnecessaryAbstractClass:
-    active: true
+    active: false
     excludeAnnotatedClasses: ['dagger.Module']
   UnnecessaryAnnotationUseSiteTarget:
     active: false
