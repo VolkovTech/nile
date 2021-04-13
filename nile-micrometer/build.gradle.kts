@@ -14,7 +14,6 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging:2.0.4")
     // jackson
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.1")
-
     // metrics
     implementation("io.micrometer:micrometer-core:1.6.2")
 
