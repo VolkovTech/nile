@@ -23,7 +23,6 @@ Table of contents
     - [Timer](#nile-micrometer-timer)
     - [Gauge](#nile-micrometer-gauge)
     - [Distribution Summary](#nile-micrometer-distribution-summary)
-    - [Scheduler spring configuration](#nile-micrometer-scheduler-spring-configuration)
     - [Scheduled metric](#nile-micrometer-scheduled-metric)
 - [Nile anomaly](#nile-anomaly)
 - [Nile grafana](#nile-grafana)
@@ -109,16 +108,13 @@ cat_fact_seconds_max{application="nile-application",status="OK",} 7.1959512
 <a name="nile-micrometer-gauge"></a>
 ### Gauge
 
-
-<a name="nile-micrometer-gauge"></a>
-### Nile Gauge
-
 <a name="nile-micrometer-distribution-summary"></a>
 ### Distribution Summary
 
-<a name="nile-micrometer-scheduler-spring-configuration"></a>
-### Scheduler spring configuration
+<a name="nile-micrometer-scheduled-metric"></a>
+### Scheduled metric
 
+#### Nile Scheduler Spring Configuration
 ```kotlin
 @Configuration
 class NileConfiguration {
@@ -134,8 +130,7 @@ class NileConfiguration {
 }
 ```
 
-<a name="nile-micrometer-scheduled-metric"></a>
-### Scheduled metric
+#### Scheduled metric
 
 ```kotlin
 fun scheduleMetric(): MetricDto {
