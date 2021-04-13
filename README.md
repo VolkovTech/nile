@@ -18,14 +18,15 @@ companies. Light-weight kotlin library, using coroutines.
 Table of contents
 
 - [Dependency](#Dependency)
-- [Example of usage](#example-of-usage)
-    - `nile-micrometer`
-        - [Scheduler spring configuration](#nile-scheduler-spring-configuration)
-        - [Scheduled metric](#scheduled-metric)
-        - [Counter](#nile-micrometer-counter)
-        - [Timer](#nile-micrometer-timer)
-    - `nile-anomaly`
-    - `nile-grafana`
+- [Nile micrometer](#nile-micrometer)
+    - [Counter](#nile-micrometer-counter)
+    - [Timer](#nile-micrometer-timer)
+    - [Gauge](#nile-micrometer-gauge)
+    - [Distribution Summary](#nile-micrometer-distribution-summary)
+    - [Scheduler spring configuration](#nile-micrometer-scheduler-spring-configuration)
+    - [Scheduled metric](#nile-micrometer-scheduled-metric)
+- [Nile anomaly](#nile-anomaly)
+- [Nile grafana](#nile-grafana)
 
 ## Dependency
 
@@ -62,59 +63,14 @@ implementation(group = "tech.volkov.nile", name = "nile-grafana", version = nile
 </dependencies>
 ```
 
-<a name="example-of-usage"></a>
-
-## Example of usage
-
-<a name="nile-scheduler-spring-configuration"></a>
-
-### Nile scheduler spring configuration
-
-```kotlin
-@Configuration
-class NileConfiguration {
-
-    @Bean
-    fun nileScheduler() = NileScheduler.builder()
-        .corePoolSize(5)
-        .maximumPoolSize(10)
-        .keepAliveTime(5000)
-        .queueCapacity(10)
-        .defaultScrapeInterval(Duration.ofSeconds(30))
-        .build()
-}
-```
-
-<a name="scheduled-metric"></a>
-### Scheduled metric
-
-```kotlin
-fun scheduleMetric(): MetricDto {
-    nileScheduler.scheduleMetric(
-        name = "random_number",
-        description = "Returns random number between 0 to 9",
-        scrapeInterval = Duration.ofSeconds(5)
-    ) {
-        Random.nextDouble(10.0)
-    }
-}
-```
-
-*Prometheus metrics (the value updates automatically every 5 seconds)*
-
-```
-# HELP random_number Returns random number between 0 to 9
-# TYPE random_number gauge
-random_number{application="nile-application",} 5.295077022881081
-```
-
-### Counter
+<a name="nile-micrometer"></a>
+## Nile Micrometer
 
 <a name="nile-micrometer-counter"></a>
+### Counter
 
 
 <a name="nile-micrometer-timer"></a>
-
 ### Timer
 
 ```kotlin
@@ -148,4 +104,55 @@ cat_fact_seconds_sum{application="nile-application",status="OK",} 17.0398064
 # HELP cat_fact_seconds_max Time to execute call to cat fact API
 # TYPE cat_fact_seconds_max gauge
 cat_fact_seconds_max{application="nile-application",status="OK",} 7.1959512
+```
+
+<a name="nile-micrometer-gauge"></a>
+### Gauge
+
+
+<a name="nile-micrometer-gauge"></a>
+### Nile Gauge
+
+<a name="nile-micrometer-distribution-summary"></a>
+### Distribution Summary
+
+<a name="nile-micrometer-scheduler-spring-configuration"></a>
+### Scheduler spring configuration
+
+```kotlin
+@Configuration
+class NileConfiguration {
+
+    @Bean
+    fun nileScheduler() = NileScheduler.builder()
+        .corePoolSize(5)
+        .maximumPoolSize(10)
+        .keepAliveTime(5000)
+        .queueCapacity(10)
+        .defaultScrapeInterval(Duration.ofSeconds(30))
+        .build()
+}
+```
+
+<a name="nile-micrometer-scheduled-metric"></a>
+### Scheduled metric
+
+```kotlin
+fun scheduleMetric(): MetricDto {
+    nileScheduler.scheduleMetric(
+        name = "random_number",
+        description = "Returns random number between 0 to 9",
+        scrapeInterval = Duration.ofSeconds(5)
+    ) {
+        Random.nextDouble(10.0)
+    }
+}
+```
+
+*Prometheus metrics (the value updates automatically every 5 seconds)*
+
+```
+# HELP random_number Returns random number between 0 to 9
+# TYPE random_number gauge
+random_number{application="nile-application",} 5.295077022881081
 ```
