@@ -4,49 +4,21 @@ import mu.KLogging
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.reactive.function.client.WebClient
-import org.springframework.web.util.UriComponentsBuilder
 import tech.volkov.nile.application.dto.MetricDto
+import tech.volkov.nile.application.service.DogFactService
 import tech.volkov.nile.micrometer.scheduler.NileScheduler
-import tech.volkov.nile.micrometer.metric.withTimer
 import java.time.Duration
 import kotlin.random.Random
 
 @RestController
-@RequestMapping("/metrics")
+@RequestMapping("dog-facts")
 class NileMetricsController(
     private val nileScheduler: NileScheduler,
-    private val webClient: WebClient
+    private val dogFactService: DogFactService
 ) {
 
-    data class CatFact(val fact: String, val length: Int)
-
     @GetMapping("timer")
-    fun timerMetric(): CatFact? {
-        val catFactResponse = withTimer(
-            metricName = "cat_fact",
-            description = "Time to execute call to cat fact API"
-        ) {
-            webClient
-                .get()
-                .uri {
-                    UriComponentsBuilder.fromHttpUrl("https://catfact.ninja")
-                        .pathSegment("fact")
-                        .build()
-                        .toUri()
-                }
-                .exchangeToMono { it.toEntity(CatFact::class.java) }
-                .block()
-        }
-
-        return if (catFactResponse?.statusCode?.is2xxSuccessful == true) {
-            logger.info { "Successfully received cat fact: [${catFactResponse.body?.fact}]" }
-            catFactResponse.body
-        } else {
-            logger.error { "Failed to receive cat fact" }
-            null
-        }
-    }
+    fun withTimer() = dogFactService.getFactWithTimer()
 
     @GetMapping("schedule")
     fun scheduleMetric(): MetricDto {
