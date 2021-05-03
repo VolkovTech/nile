@@ -7,5 +7,5 @@ interface DogFactService {
     /**
      * Returns random number of dog facts by calling dog facts API
      */
-    fun getDogFacts(number: Int = Random.nextInt(10)): List<String>
+    fun getFacts(number: Int = Random.nextInt(10)): List<String>
 }
