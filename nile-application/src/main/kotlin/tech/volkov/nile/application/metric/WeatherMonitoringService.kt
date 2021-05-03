@@ -18,7 +18,7 @@ class WeatherMonitoringService(
         println("hello!")
     }
 
-    @NileScheduledMetric(metricName = "hello_world")
+    @NileScheduledMetric(name = "hello_world")
     fun updateHelloWorldMetric() {
         println("metric hello world was successfully updated")
     }

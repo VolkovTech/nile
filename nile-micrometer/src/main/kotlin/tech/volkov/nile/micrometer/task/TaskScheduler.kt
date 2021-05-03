@@ -18,7 +18,7 @@ class TaskScheduler(
 ) {
 
     init {
-        nileExecutor.getScheduledExecutorService().scheduleAtFixedRate(
+        nileExecutor.scheduledExecutorService.scheduleAtFixedRate(
             { runUpdateMetrics() },
             0,
             UPDATE_PERIOD_IN_MILLIS,
@@ -27,7 +27,7 @@ class TaskScheduler(
     }
 
     private fun runUpdateMetrics() = globalRegistry.forEach {
-        nileExecutor.getCoroutineScope().launch { updateMetricIfNeeded(it.value) }
+        nileExecutor.coroutineScope.launch { updateMetricIfNeeded(it.value) }
     }
 
     private fun updateMetricIfNeeded(metricContext: MetricContext) = with(metricContext) {
