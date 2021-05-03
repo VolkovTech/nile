@@ -5,7 +5,7 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import tech.volkov.nile.application.micrometer.registry
-import tech.volkov.nile.micrometer.metric.incrementCounter
+import tech.volkov.nile.micrometer.metric.nileCounter
 
 internal class NileCounterTest {
 
@@ -13,7 +13,7 @@ internal class NileCounterTest {
     fun `counter correctly increments`() {
         registry.find(TEST_COUNTER_NAME).counters() shouldHaveSize 0
 
-        incrementCounter(TEST_COUNTER_NAME)
+        nileCounter(TEST_COUNTER_NAME)
 
         registry.find(TEST_COUNTER_NAME).counters().asClue {
             it shouldHaveSize 1

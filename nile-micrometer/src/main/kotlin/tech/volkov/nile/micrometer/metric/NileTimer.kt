@@ -7,8 +7,8 @@ import tech.volkov.nile.micrometer.global.STATUS_FAILURE
 import tech.volkov.nile.micrometer.global.STATUS_SUCCESS
 import tech.volkov.nile.micrometer.global.STATUS_TAG_NAME
 
-fun <T> withTimer(
-    metricName: String,
+fun <T> nileTimer(
+    name: String,
     description: String = "",
     tags: Map<String, String> = emptyMap(),
     block: () -> T
@@ -16,20 +16,20 @@ fun <T> withTimer(
     val timerSample = startTimer()
 
     return runCatching(block)
-        .also { stopTimer(timerSample, metricName, description, tags, it.isSuccess) }
+        .also { stopTimer(timerSample, name, description, tags, it.isSuccess) }
         .getOrThrow()
 }
 
-fun startTimer(): Timer.Sample = Timer.start(Metrics.globalRegistry)
+private fun startTimer(): Timer.Sample = Timer.start(Metrics.globalRegistry)
 
-fun stopTimer(
+private fun stopTimer(
     timerSample: Timer.Sample,
-    metricName: String,
+    name: String,
     description: String = "",
     tags: Map<String, String> = emptyMap(),
     isSuccess: Boolean = true
 ) = timerSample.stop(
-    Timer.builder(metricName)
+    Timer.builder(name)
         .description(description)
         .tags(tags.map { Tag.of(it.key, it.value) })
         .tag(STATUS_TAG_NAME, if (isSuccess) STATUS_SUCCESS else STATUS_FAILURE)

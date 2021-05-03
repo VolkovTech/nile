@@ -75,7 +75,7 @@ implementation(group = "tech.volkov.nile", name = "nile-grafana", version = nile
 ```kotlin
 fun getCatFact(): CatFact? {
     withTimer(
-        metricName = "cat_fact",
+        name = "cat_fact",
         description = "Time to execute call to cat fact API"
     ) {
         webClient

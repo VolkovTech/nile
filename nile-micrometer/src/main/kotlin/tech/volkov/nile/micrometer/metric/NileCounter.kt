@@ -7,15 +7,15 @@ import tech.volkov.nile.micrometer.global.STATUS_FAILURE
 import tech.volkov.nile.micrometer.global.STATUS_SUCCESS
 import tech.volkov.nile.micrometer.global.STATUS_TAG_NAME
 
-fun incrementCounter(
-    metricName: String,
+fun nileCounter(
+    name: String,
     description: String = "",
     tags: Map<String, String> = emptyMap(),
     isSuccess: Boolean = true,
     amount: () -> Double = { 1.0 }
 ) {
     Counter
-        .builder(metricName)
+        .builder(name)
         .description(description)
         .tags(tags.map { Tag.of(it.key, it.value) })
         .tag(STATUS_TAG_NAME, if (isSuccess) STATUS_SUCCESS else STATUS_FAILURE)

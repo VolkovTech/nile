@@ -16,10 +16,10 @@ class MetricsRegister {
     }
 
     private fun registerGaugeMetric(
-        metricName: String,
+        name: String,
         description: String,
         tags: Map<String, String> = emptyMap()
-    ) = Gauge.builder(metricName, gaugeMetricMap) { it[metricName] ?: 0.0 }
+    ) = Gauge.builder(name, gaugeMetricMap) { it[name] ?: 0.0 }
         .also { tags.forEach { (tagName, tagValue) -> it.tag(tagName, tagValue) } }
         .description(description)
         .register(Metrics.globalRegistry)
