@@ -1,7 +1,11 @@
 package tech.volkov.nile.micrometer.metric
 
 import io.micrometer.core.instrument.Metrics
+import io.micrometer.core.instrument.Tag
 import io.micrometer.core.instrument.Timer
+import tech.volkov.nile.micrometer.global.STATUS_FAILURE
+import tech.volkov.nile.micrometer.global.STATUS_SUCCESS
+import tech.volkov.nile.micrometer.global.STATUS_TAG_NAME
 
 fun <T> withTimer(
     metricName: String,
@@ -16,7 +20,7 @@ fun <T> withTimer(
         .getOrThrow()
 }
 
-fun startTimer() = Timer.start(Metrics.globalRegistry)
+fun startTimer(): Timer.Sample = Timer.start(Metrics.globalRegistry)
 
 fun stopTimer(
     timerSample: Timer.Sample,
@@ -26,8 +30,8 @@ fun stopTimer(
     isSuccess: Boolean = true
 ) = timerSample.stop(
     Timer.builder(metricName)
-        .also { tags.forEach { (tagName, tagValue) -> it.tag(tagName, tagValue) } }
-        .tag("status", if (isSuccess) "OK" else "ERROR")
         .description(description)
+        .tags(tags.map { Tag.of(it.key, it.value) })
+        .tag(STATUS_TAG_NAME, if (isSuccess) STATUS_SUCCESS else STATUS_FAILURE)
         .register(Metrics.globalRegistry)
 )
