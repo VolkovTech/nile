@@ -1,7 +1,7 @@
 plugins {
     id(Spring.Boot.group) version Spring.Boot.version
 
-    kotlinPlugins(Kotlin.jvmId, Kotlin.kaptId)
+    kotlinPlugins(Kotlin.jvmId, Kotlin.kaptId, Kotlin.spring)
     kotlinPlugin(Kotlin.allOpenId) apply false // provides kotlin-spring
     kotlinPlugin(Kotlin.noArgId) apply false // provides kotlin-jpa
 
@@ -89,7 +89,12 @@ subprojects {
         implementation(group = "com.google.auto.service", name = "auto-service", version = "1.0-rc7")
         kapt(group = "com.google.auto.service", name = "auto-service", version = "1.0-rc7")
 
-        Common.Libraries.Swagger.dependencies.forEach { implementation(it) }
+        // webclient
+        implementation(group = "org.springframework.boot", name = "spring-boot-starter-webflux")
+        implementation(group = "io.projectreactor.kotlin", name = "reactor-kotlin-extensions", version = "1.1.2")
+
+        // open api
+        implementation(Common.openApi)
 
         // utils
         compileOnly(Spring.Boot.configurationProcessor)

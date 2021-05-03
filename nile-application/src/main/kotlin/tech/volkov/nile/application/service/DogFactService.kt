@@ -2,5 +2,5 @@ package tech.volkov.nile.application.service
 
 interface DogFactService {
 
-    fun getFactWithTimer(): List<String>
+    fun getDogFacts(number: Int = 5): List<String>
 }

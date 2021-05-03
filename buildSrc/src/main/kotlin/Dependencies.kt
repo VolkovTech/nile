@@ -17,6 +17,7 @@ object Kotlin {
     const val kaptId = "kapt"
     const val allOpenId = "plugin.allopen"
     const val noArgId = "plugin.noarg"
+    const val spring = "plugin.spring"
 
     const val logging = "io.github.microutils:kotlin-logging:2.0.4"
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
@@ -59,14 +60,6 @@ object Common {
             const val micrometer = "io.micrometer:micrometer-registry-prometheus"
         }
 
-        object Swagger {
-            const val version = "2.9.2"
-            val dependencies = listOf(
-                "io.springfox:springfox-swagger2:$version",
-                "io.springfox:springfox-swagger-ui:$version"
-            )
-        }
-
         object Test {
             private const val junitJupiterVersion = "5.7.1"
             private const val junitPlatformVersion = "1.7.1"
@@ -93,6 +86,7 @@ object Common {
         }
     }
 
+    const val openApi = "org.springdoc:springdoc-openapi-ui:1.5.5"
     const val jacksonModuleKotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:2.11.0"
     const val apacheCommonLang = "org.apache.commons:commons-lang3:3.7"
     const val logback = "net.logstash.logback:logstash-logback-encoder:5.2"
