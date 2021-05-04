@@ -4,11 +4,8 @@ import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import tech.volkov.nile.micrometer.annotation.metric.NileGauge
-import tech.volkov.nile.micrometer.annotation.metric.NileTimer
 import tech.volkov.nile.micrometer.global.getTags
-import tech.volkov.nile.micrometer.metric.nileCounter
 import tech.volkov.nile.micrometer.metric.nileGauge
-import tech.volkov.nile.micrometer.metric.nileTimer
 
 @Aspect
 class NileGaugeAspect {

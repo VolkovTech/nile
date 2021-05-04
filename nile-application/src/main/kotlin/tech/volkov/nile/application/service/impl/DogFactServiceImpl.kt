@@ -50,7 +50,9 @@ class DogFactServiceImpl(
         nileDistributionSummary(
             name = "dog_facts_distribution_summary",
             unit = "short",
-            description = "Distribution summary for dogs facts"
+            description = "Distribution summary for dogs facts",
+            tags = mapOf("tagName" to "tagValue"),
+            isSuccess = isSuccess
         ) {
             dogFacts.size.toDouble()
         }
