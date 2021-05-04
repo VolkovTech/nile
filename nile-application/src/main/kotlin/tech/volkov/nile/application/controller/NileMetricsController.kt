@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import tech.volkov.nile.application.dto.MetricDto
 import tech.volkov.nile.application.service.DogFactService
+import tech.volkov.nile.micrometer.annotation.metric.NileCounter
 import tech.volkov.nile.micrometer.scheduler.NileScheduler
 import java.time.Duration
 import kotlin.random.Random
@@ -18,6 +19,12 @@ class NileMetricsController(
 ) {
 
     @GetMapping
+    @NileCounter(
+        name = "dog_facts_counter",
+        description = "Counts how many request were executed to dog facts API",
+        tags = ["isAnnotation", "true", "amount", "10"],
+        amount = 10.0
+    )
     fun getDogFacts() = dogFactService.getFacts()
 
     @GetMapping("schedule")

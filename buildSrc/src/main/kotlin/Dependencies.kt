@@ -50,45 +50,49 @@ object Spring {
         const val starterActuator = "$group:spring-boot-starter-actuator"
         const val configurationProcessor = "$group:spring-boot-configuration-processor"
         const val webflux = "$group:spring-boot-starter-webflux"
+        const val aop = "$group:spring-boot-starter-aop"
     }
 }
 
 object Common {
-    object Libraries {
 
-        object Metrics {
-            const val micrometer = "io.micrometer:micrometer-registry-prometheus"
-        }
+    object Metrics {
+        const val micrometer = "io.micrometer:micrometer-registry-prometheus"
+    }
 
-        object Test {
-            private const val junitJupiterVersion = "5.7.1"
-            private const val junitPlatformVersion = "1.7.1"
+    object Aspectj {
+        const val aspectjweaver = "org.aspectj:aspectjweaver:1.9.6"
+    }
 
-            val implementation = listOf(
-                "io.mockk:mockk:1.10.0",
-                "org.assertj:assertj-core:2.6.0",
-                "org.mockito:mockito-core:2.24.0",
-                "org.mockito:mockito-junit-jupiter:2.23.0",
-                "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0",
-                "com.nhaarman:mockito-kotlin:1.6.0",
-                "org.springframework.boot:spring-boot-starter-test",
-                "io.kotest:kotest-runner-junit5-jvm:4.3.2",
-                "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
-            )
-            val runtime = listOf(
-                "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion",
-                "org.junit.vintage:junit-vintage-engine:$junitJupiterVersion",
-                "org.junit.platform:junit-platform-launcher:$junitPlatformVersion",
-                "org.junit.platform:junit-platform-runner:$junitPlatformVersion",
-                "org.junit.platform:junit-platform-engine:$junitPlatformVersion",
-                "org.junit.platform:junit-platform-commons:$junitPlatformVersion"
-            )
-        }
+    object Test {
+        private const val junitJupiterVersion = "5.7.1"
+        private const val junitPlatformVersion = "1.7.1"
+
+        val implementation = listOf(
+            "io.mockk:mockk:1.10.0",
+            "org.assertj:assertj-core:2.6.0",
+            "org.mockito:mockito-core:2.24.0",
+            "org.mockito:mockito-junit-jupiter:2.23.0",
+            "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0",
+            "com.nhaarman:mockito-kotlin:1.6.0",
+            "org.springframework.boot:spring-boot-starter-test",
+            "io.kotest:kotest-runner-junit5-jvm:4.3.2",
+            "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+        )
+        val runtime = listOf(
+            "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion",
+            "org.junit.vintage:junit-vintage-engine:$junitJupiterVersion",
+            "org.junit.platform:junit-platform-launcher:$junitPlatformVersion",
+            "org.junit.platform:junit-platform-runner:$junitPlatformVersion",
+            "org.junit.platform:junit-platform-engine:$junitPlatformVersion",
+            "org.junit.platform:junit-platform-commons:$junitPlatformVersion"
+        )
     }
 
     const val openApi = "org.springdoc:springdoc-openapi-ui:1.5.5"
     const val jacksonModuleKotlin = "com.fasterxml.jackson.module:jackson-module-kotlin:2.11.0"
     const val apacheCommonLang = "org.apache.commons:commons-lang3:3.7"
+    const val reactorKotlinExtensions = "io.projectreactor.kotlin:reactor-kotlin-extensions:1.1.2"
     const val logback = "net.logstash.logback:logstash-logback-encoder:5.2"
 }
 

@@ -210,7 +210,7 @@ exceptions:
     active: false
   TooGenericExceptionCaught:
     active: true
-    excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
+    excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**', '**/Aspect/**']
     exceptionNames:
      - ArrayIndexOutOfBoundsException
      - Error
