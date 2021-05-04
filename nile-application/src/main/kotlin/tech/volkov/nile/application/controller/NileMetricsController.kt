@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 import tech.volkov.nile.application.dto.MetricDto
 import tech.volkov.nile.application.service.DogFactService
 import tech.volkov.nile.micrometer.annotation.metric.NileCounter
+import tech.volkov.nile.micrometer.annotation.metric.NileTimer
 import tech.volkov.nile.micrometer.scheduler.NileScheduler
 import java.time.Duration
 import kotlin.random.Random
@@ -24,6 +25,12 @@ class NileMetricsController(
         description = "Counts how many request were executed to dog facts API",
         tags = ["isAnnotation", "true", "amount", "10"],
         amount = 10.0
+    )
+    @NileTimer(
+        name = "dog_facts_timer",
+        description = "Response time for dog facts API",
+        tags = ["isAnnotation", "true"],
+        percentiles = [0.5, 0.75, 0.9, 0.95, 0.99]
     )
     fun getDogFacts() = dogFactService.getFacts()
 

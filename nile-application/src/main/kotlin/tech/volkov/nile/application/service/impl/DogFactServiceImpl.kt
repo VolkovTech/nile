@@ -21,7 +21,7 @@ class DogFactServiceImpl(
     override fun getFacts(number: Int): List<String> {
         val dogFactsResponse = nileTimer(
             name = "dog_facts_timer",
-            description = "Time to execute call to cat fact API"
+            description = "Response time for dog facts API"
         ) {
             getDogFacts(number)
         }
