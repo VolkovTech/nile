@@ -4,6 +4,7 @@ import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import tech.volkov.nile.micrometer.annotation.metric.NileCounter
+import tech.volkov.nile.micrometer.global.getTags
 import tech.volkov.nile.micrometer.metric.nileCounter
 
 @Aspect
@@ -22,17 +23,5 @@ class NileCounterAspect {
             nileCounter(counter.name, counter.description, getTags(counter.tags), false) { counter.amount }
             throw ex
         }
-    }
-
-    private fun getTags(counterTags: Array<String>): Map<String, String> = if (counterTags.size % 2 == 0) {
-        mutableMapOf<String, String>().also {
-            counterTags.forEachIndexed { index, tag ->
-                if (index % 2 == 0) {
-                    it[tag] = counterTags[index + 1]
-                }
-            }
-        }
-    } else {
-        emptyMap()
     }
 }
