@@ -2,16 +2,18 @@
 
 Nile project - is a monitoring system, set of libraries, containing useful API for building, export, analyzing and visualizing business metrics of your Spring Java/Kotlin application. 
 
-`nile-micrometer`
-  - functions for building different metrics types (counter, timer, gauge, distribution summary)
-  - export database metrics via select
-  - collect metrics by schedule
+Nile project contains of 3 modules:
 
-`nile-anomaly`
-  - analyzing anomalies in time series
-  - export anomalies metrics 
+[`nile-micrometer`](#nile-micrometer)
+  - building different types of business metrics (counter, timer, gauge, distribution summary)
+  - building database metrics via executing select queries
+  - collecting metrics by schedule
 
-`nile-grafana`
+[`nile-anomaly`](#nile-anomaly)
+  - analyzing business time series on anomalies
+  - exporting anomalies metrics 
+
+[`nile-grafana`](#nile-grafana)
   - Kotlin DSL for building grafana dashboards (*grafana as a code*)
   - Grafana Dashboard management via Grafana API
 
