@@ -30,7 +30,7 @@ class DogFactServiceImpl(
 
         nileCounter(
             name = "dog_facts_counter",
-            description = "Counter for dogs facts",
+            description = "Counts how many request were executed to dog facts API",
             isSuccess = isSuccess
         )
 

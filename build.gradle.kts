@@ -80,18 +80,17 @@ subprojects {
         implementation(Spring.Boot.starterWebServices)
         implementation(Spring.Boot.starterActuator)
 
-        runtimeOnly(Common.Libraries.Metrics.micrometer)
+        runtimeOnly(Common.Metrics.micrometer)
 
         implementation(Common.jacksonModuleKotlin)
 
         // annotation processing
-        implementation(group = "com.squareup", name = "kotlinpoet", version = "1.7.2")
-        implementation(group = "com.google.auto.service", name = "auto-service", version = "1.0-rc7")
-        kapt(group = "com.google.auto.service", name = "auto-service", version = "1.0-rc7")
+        implementation(Spring.Boot.aop)
+        implementation(Common.Aspectj.aspectjweaver)
 
         // webclient
-        implementation(group = "org.springframework.boot", name = "spring-boot-starter-webflux")
-        implementation(group = "io.projectreactor.kotlin", name = "reactor-kotlin-extensions", version = "1.1.2")
+        implementation(Spring.Boot.webflux)
+        implementation(Common.reactorKotlinExtensions)
 
         // open api
         implementation(Common.openApi)
@@ -104,7 +103,7 @@ subprojects {
         implementation(Common.logback)
 
         // test
-        Common.Libraries.Test.implementation.forEach { testImplementation(it) }
-        Common.Libraries.Test.runtime.forEach { testRuntimeOnly(it) }
+        Common.Test.implementation.forEach { testImplementation(it) }
+        Common.Test.runtime.forEach { testRuntimeOnly(it) }
     }
 }
