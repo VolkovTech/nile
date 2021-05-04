@@ -21,7 +21,9 @@ class DogFactServiceImpl(
     override fun getFacts(number: Int): List<String> {
         val dogFactsResponse = nileTimer(
             name = "dog_facts_timer",
-            description = "Response time for dog facts API"
+            description = "Response time for dog facts API",
+            tags = mapOf("tagName" to "tagValue"),
+            percentiles = listOf(0.5, 0.75, 0.9, 0.95, 0.99)
         ) {
             getDogFacts(number)
         }
@@ -31,12 +33,16 @@ class DogFactServiceImpl(
         nileCounter(
             name = "dog_facts_counter",
             description = "Counts how many request were executed to dog facts API",
-            isSuccess = isSuccess
+            tags = mapOf("tagName" to "tagValue"),
+            isSuccess = isSuccess,
+            amount = { 10.0 }
         )
 
         nileGauge(
             name = "dog_facts_gauge",
-            description = "Gauge for dogs facts"
+            description = "Current value of size of dogs facts",
+            tags = mapOf("tagName" to "tagValue"),
+            isSuccess = isSuccess
         ) {
             dogFacts.size.toDouble()
         }

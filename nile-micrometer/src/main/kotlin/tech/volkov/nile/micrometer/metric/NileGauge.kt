@@ -12,7 +12,7 @@ fun nileGauge(
     description: String = "",
     tags: Map<String, String> = emptyMap(),
     isSuccess: Boolean = true,
-    value: () -> Double
+    value: () -> Double = { 0.0 }
 ) {
     Gauge.builder(name) { value() }
         .description(description)
