@@ -4,18 +4,24 @@
 
 # Nile Project
 
-Nile project - is an open-source project, monitoring system, analysis of anomalies and timely warning for modern IT
-companies. Light-weight kotlin library, using coroutines.
+Nile project - is a monitoring system, set of libraries, containing useful API for building, export, analyzing and visualizing business metrics of your Spring Java/Kotlin application. 
 
-`nile-micrometer` - basic functions and utils for building `Gauge Counter` & `Gauge Timer` metrics
+`nile-micrometer`
+  - functions for building different metrics types (counter, timer, gauge, distribution summary)
+  - export database metrics via select
+  - collect metrics by schedule
 
-`nile-anomaly` - tools for anomaly analyzing, exporting anomaly metrics
+`nile-anomaly`
+  - analyzing anomalies in time series
+  - export anomalies metrics 
 
-`nile-grafana` - implementation of *grafana as a code* approach containing all grafana configuration in code
+`nile-grafana`
+  - Kotlin DSL for building grafana dashboards (*grafana as a code*)
+  - Grafana Dashboard management via Grafana API
 
-`nile-application` - contains an example of using nile project
+Example of usage for all modules can be found in `nile-application` module.
 
-Table of contents
+## Table of contents
 
 - [Dependency](#Dependency)
 - [Nile micrometer](#nile-micrometer)
@@ -68,28 +74,51 @@ implementation(group = "tech.volkov.nile", name = "nile-grafana", version = nile
 <a name="nile-micrometer-counter"></a>
 ### Counter
 
+Increases micrometer counter each time when function calls  
+
+*Function*
+
+```kotlin
+nileCounter(
+    name = "dog_facts_counter",
+    description = "Counts how many request were executed to dog facts API",
+    tags = mapOf("tagName" to "tagValue"),
+    isSuccess = isSuccess,
+    amount = { 10.0 }
+)
+```
+
+*Annotation*
+
+```kotlin
+@NileCounter(
+    name = "dog_facts_counter",
+    description = "Counts how many request were executed to dog facts API",
+    tags = ["tagName", "tagValue"],
+    amount = 10.0
+)
+fun getDogFacts() {
+    // getting dogs facts
+}
+```
+
+*Prometheus metrics*
+
+```
+
+```
 
 <a name="nile-micrometer-timer"></a>
 ### Timer
 
 ```kotlin
-fun getCatFact(): CatFact? {
-    withTimer(
-        name = "cat_fact",
-        description = "Time to execute call to cat fact API"
-    ) {
-        webClient
-            .get()
-            .uri {
-                UriComponentsBuilder.fromHttpUrl("https://catfact.ninja")
-                    .pathSegment("fact")
-                    .build()
-                    .toUri()
-            }
-            .exchangeToMono { it.toEntity(CatFact::class.java) }
-            .block()
-            .body
-    }
+val dogFactsResponse = nileTimer(
+    name = "dog_facts_timer",
+    description = "Response time for dog facts API",
+    tags = mapOf("tagName" to "tagValue"),
+    percentiles = listOf(0.5, 0.75, 0.9, 0.95, 0.99)
+) {    
+    getDogFacts(number)
 }
 ```
 
@@ -108,8 +137,28 @@ cat_fact_seconds_max{application="nile-application",status="OK",} 7.1959512
 <a name="nile-micrometer-gauge"></a>
 ### Gauge
 
+```kotlin
+
+```
+
+*Prometheus metrics*
+
+```
+
+```
+
 <a name="nile-micrometer-distribution-summary"></a>
 ### Distribution Summary
+
+```kotlin
+
+```
+
+*Prometheus metrics*
+
+```
+
+```
 
 <a name="nile-micrometer-scheduled-metric"></a>
 ### Scheduled metric
