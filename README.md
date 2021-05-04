@@ -1,7 +1,3 @@
-![Maintaner](https://img.shields.io/badge/maintainer-VolkovTech-blue)
-[![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
-[![GitHub tag](https://img.shields.io/github/tag/Naereen/StrapDown.js.svg)](https://github.com/VolkovTech/nile/tags)
-
 # Nile Project
 
 Nile project - is a monitoring system, set of libraries, containing useful API for building, export, analyzing and visualizing business metrics of your Spring Java/Kotlin application. 
