@@ -1,16 +1,16 @@
-package tech.volkov.nile.micrometer.annotation.aspect
+package tech.volkov.nile.micrometer.aspect.basic
 
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
-import tech.volkov.nile.micrometer.annotation.metric.NileGauge
+import tech.volkov.nile.micrometer.annotation.basic.NileGauge
 import tech.volkov.nile.micrometer.global.getTags
 import tech.volkov.nile.micrometer.metric.nileGauge
 
 @Aspect
 class NileGaugeAspect {
 
-    @Around("@annotation(tech.volkov.nile.micrometer.annotation.metric.NileGauge)")
+    @Around("@annotation(tech.volkov.nile.micrometer.annotation.basic.NileGauge)")
     fun around(joinPoint: ProceedingJoinPoint): Any {
         val method = joinPoint.target.javaClass.getMethod(joinPoint.signature.name)
         val gauge = method.getAnnotation(NileGauge::class.java)

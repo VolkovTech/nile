@@ -1,4 +1,4 @@
-package tech.volkov.nile.micrometer.annotation.metric
+package tech.volkov.nile.micrometer.annotation.basic
 
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
