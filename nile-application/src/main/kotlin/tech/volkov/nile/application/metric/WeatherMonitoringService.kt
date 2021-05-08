@@ -2,7 +2,7 @@ package tech.volkov.nile.application.metric
 
 import org.springframework.stereotype.Service
 import tech.volkov.nile.application.configuration.properties.OpenWeatherProperties
-import tech.volkov.nile.micrometer.annotation.NileScheduledMetric
+import tech.volkov.nile.micrometer.annotation.scheduled.NileCounterScheduled
 import javax.annotation.PostConstruct
 
 /**
@@ -18,7 +18,7 @@ class WeatherMonitoringService(
         println("hello!")
     }
 
-    @NileScheduledMetric(name = "hello_world")
+    @NileCounterScheduled(name = "hello_world")
     fun updateHelloWorldMetric() {
         println("metric hello world was successfully updated")
     }

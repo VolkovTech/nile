@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import tech.volkov.nile.application.dto.MetricDto
 import tech.volkov.nile.application.service.DogFactService
-import tech.volkov.nile.micrometer.annotation.metric.NileCounter
-import tech.volkov.nile.micrometer.annotation.metric.NileDistributionSummary
-import tech.volkov.nile.micrometer.annotation.metric.NileGauge
-import tech.volkov.nile.micrometer.annotation.metric.NileTimer
+import tech.volkov.nile.micrometer.annotation.basic.NileCounter
+import tech.volkov.nile.micrometer.annotation.basic.NileDistributionSummary
+import tech.volkov.nile.micrometer.annotation.basic.NileGauge
+import tech.volkov.nile.micrometer.annotation.basic.NileTimer
 import tech.volkov.nile.micrometer.scheduler.NileScheduler
 import java.time.Duration
 import kotlin.random.Random
@@ -44,8 +44,7 @@ class NileMetricsController(
         unit = "short",
         description = "Distribution summary for dogs facts",
         tags = ["tagName", "tagValue"],
-        percentiles = [0.5, 0.75, 0.9, 0.95, 0.99],
-        amount = 10.0
+        percentiles = [0.5, 0.75, 0.9, 0.95, 0.99]
     )
     fun getDogFacts() = dogFactService.getFacts()
 

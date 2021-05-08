@@ -198,3 +198,10 @@ fun scheduleMetric(): MetricDto {
 # TYPE random_number gauge
 random_number{application="nile-application",} 5.295077022881081
 ```
+
+<a name="nile-anomaly"></a>
+## Nile Anomaly
+
+
+<a name="nile-grafana"></a>
+## Nile Grafana
