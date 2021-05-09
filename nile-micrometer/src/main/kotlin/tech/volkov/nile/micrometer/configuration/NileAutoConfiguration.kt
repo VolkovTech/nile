@@ -2,10 +2,10 @@ package tech.volkov.nile.micrometer.configuration
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import tech.volkov.nile.micrometer.aspect.basic.NileCounterAspect
-import tech.volkov.nile.micrometer.aspect.basic.NileDistributionSummaryAspect
-import tech.volkov.nile.micrometer.aspect.basic.NileGaugeAspect
-import tech.volkov.nile.micrometer.aspect.basic.NileTimerAspect
+import tech.volkov.nile.micrometer.aspect.NileCounterAspect
+import tech.volkov.nile.micrometer.aspect.NileDistributionSummaryAspect
+import tech.volkov.nile.micrometer.aspect.NileGaugeAspect
+import tech.volkov.nile.micrometer.aspect.NileTimerAspect
 
 @Configuration
 class NileAutoConfiguration {

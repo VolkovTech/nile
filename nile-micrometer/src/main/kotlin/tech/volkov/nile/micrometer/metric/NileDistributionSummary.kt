@@ -7,6 +7,7 @@ import tech.volkov.nile.micrometer.global.DEFAULT_PERCENTILES
 import tech.volkov.nile.micrometer.global.STATUS_FAILURE
 import tech.volkov.nile.micrometer.global.STATUS_SUCCESS
 import tech.volkov.nile.micrometer.global.STATUS_TAG_NAME
+import tech.volkov.nile.micrometer.util.runBlockAndCatchError
 
 fun nileDistributionSummary(
     name: String,
@@ -14,16 +15,15 @@ fun nileDistributionSummary(
     description: String = "",
     tags: Map<String, String> = emptyMap(),
     percentiles: List<Double> = DEFAULT_PERCENTILES,
-    isSuccess: Boolean = true,
-    amount: () -> Double = { 1.0 }
-) {
+    block: () -> Double = { 1.0 }
+) = runBlockAndCatchError(block) { metricValue: Double?, isSuccess: Boolean ->
     DistributionSummary
         .builder(name)
         .baseUnit(unit)
         .description(description)
-        .tags(tags.map { Tag.of(it.key, it.value) })
+        .tags(tags.map { tag -> Tag.of(tag.key, tag.value) })
         .tag(STATUS_TAG_NAME, if (isSuccess) STATUS_SUCCESS else STATUS_FAILURE)
         .publishPercentiles(*percentiles.toDoubleArray())
         .register(Metrics.globalRegistry)
-        .record(amount())
+        .record(metricValue ?: 0.0)
 }

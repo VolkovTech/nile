@@ -1,9 +1,7 @@
 package tech.volkov.nile.micrometer.scheduler
 
 import mu.KLogging
-import tech.volkov.nile.micrometer.context.MetricContext
 import tech.volkov.nile.micrometer.executor.NileExecutor
-import tech.volkov.nile.micrometer.gauge.MetricsRegister
 import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_CORE_POOL_SIZE
 import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_KEEP_ALIVE_TIME
 import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_MAXIMUM_POOL_SIZE
@@ -53,7 +51,7 @@ class NileScheduler private constructor(
 
     init {
         NileExecutor(corePoolSize, maximumPoolSize, keepAliveTime, queueCapacity)
-            .also { TaskScheduler(it, defaultScrapeInterval, MetricsRegister()) }
+            .also { TaskScheduler(it) }
     }
 
     companion object : KLogging() {
@@ -112,15 +110,4 @@ class NileScheduler private constructor(
                 .let { "[$it]" }
         }
     }
-
-    /**
-     * Builder for [MetricContext]
-     */
-    fun scheduleMetric(
-        name: String,
-        description: String = "",
-        scrapeInterval: Duration? = null,
-        tags: Map<String, String> = emptyMap(),
-        value: () -> Double?
-    ) = MetricContext(name, description, tags, scrapeInterval, value = value).register()
 }

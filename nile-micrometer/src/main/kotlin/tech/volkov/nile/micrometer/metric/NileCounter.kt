@@ -6,18 +6,19 @@ import io.micrometer.core.instrument.Tag
 import tech.volkov.nile.micrometer.global.STATUS_FAILURE
 import tech.volkov.nile.micrometer.global.STATUS_SUCCESS
 import tech.volkov.nile.micrometer.global.STATUS_TAG_NAME
+import tech.volkov.nile.micrometer.util.runBlockAndCatchError
 
-fun nileCounter(
+fun <T> nileCounter(
     name: String,
     description: String = "",
     tags: Map<String, String> = emptyMap(),
-    isSuccess: Boolean = true,
-    amount: () -> Double = { 1.0 }
-) {
+    amount: () -> Double = { 1.0 },
+    block: () -> T
+) = runBlockAndCatchError(block) { _: Double?, isSuccess: Boolean ->
     Counter
         .builder(name)
         .description(description)
-        .tags(tags.map { Tag.of(it.key, it.value) })
+        .tags(tags.map { tag -> Tag.of(tag.key, tag.value) })
         .tag(STATUS_TAG_NAME, if (isSuccess) STATUS_SUCCESS else STATUS_FAILURE)
         .register(Metrics.globalRegistry)
         .increment(amount())
