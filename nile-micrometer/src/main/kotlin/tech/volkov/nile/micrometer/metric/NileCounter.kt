@@ -12,7 +12,7 @@ fun <T> nileCounter(
     name: String,
     description: String = "",
     tags: Map<String, String> = emptyMap(),
-    amount: () -> Double = { 1.0 },
+    amount: Double = 1.0,
     block: () -> T
 ) = runBlockAndCatchError(block) { _: Double?, isSuccess: Boolean ->
     Counter
@@ -21,5 +21,5 @@ fun <T> nileCounter(
         .tags(tags.map { tag -> Tag.of(tag.key, tag.value) })
         .tag(STATUS_TAG_NAME, if (isSuccess) STATUS_SUCCESS else STATUS_FAILURE)
         .register(Metrics.globalRegistry)
-        .increment(amount())
+        .increment(amount)
 }

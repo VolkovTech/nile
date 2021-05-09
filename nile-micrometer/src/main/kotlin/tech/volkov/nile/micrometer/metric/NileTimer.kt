@@ -7,6 +7,7 @@ import tech.volkov.nile.micrometer.global.DEFAULT_PERCENTILES
 import tech.volkov.nile.micrometer.global.STATUS_FAILURE
 import tech.volkov.nile.micrometer.global.STATUS_SUCCESS
 import tech.volkov.nile.micrometer.global.STATUS_TAG_NAME
+import tech.volkov.nile.micrometer.util.runBlockAndCatchError
 
 fun <T> nileTimer(
     name: String,
@@ -17,9 +18,9 @@ fun <T> nileTimer(
 ): T {
     val timerSample = startTimer()
 
-    return runCatching(block)
-        .also { stopTimer(timerSample, name, description, tags, percentiles, it.isSuccess) }
-        .getOrThrow()
+    return runBlockAndCatchError(block) { _: Double?, isSuccess: Boolean ->
+        stopTimer(timerSample, name, description, tags, percentiles, isSuccess)
+    }
 }
 
 private fun startTimer(): Timer.Sample = Timer.start(Metrics.globalRegistry)
@@ -32,7 +33,8 @@ private fun stopTimer(
     percentiles: List<Double> = DEFAULT_PERCENTILES,
     isSuccess: Boolean = true
 ) = timerSample.stop(
-    Timer.builder(name)
+    Timer
+        .builder(name)
         .description(description)
         .tags(tags.map { Tag.of(it.key, it.value) })
         .tag(STATUS_TAG_NAME, if (isSuccess) STATUS_SUCCESS else STATUS_FAILURE)

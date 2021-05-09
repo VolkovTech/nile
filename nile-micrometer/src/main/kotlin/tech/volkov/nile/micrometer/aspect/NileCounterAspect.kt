@@ -15,7 +15,7 @@ class NileCounterAspect {
         val method = joinPoint.target.javaClass.getMethod(joinPoint.signature.name)
         val counter = method.getAnnotation(NileCounter::class.java)
 
-        return nileCounter(counter.name, counter.description, getTags(counter.tags), { counter.amount }) {
+        return nileCounter(counter.name, counter.description, getTags(counter.tags), counter.amount) {
             joinPoint.proceed()
         }
     }
