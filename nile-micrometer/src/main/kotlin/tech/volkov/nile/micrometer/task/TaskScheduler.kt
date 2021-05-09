@@ -2,14 +2,17 @@ package tech.volkov.nile.micrometer.task
 
 import kotlinx.coroutines.launch
 import mu.KLogging
-import tech.volkov.nile.micrometer.registry.NileScheduledTask
 import tech.volkov.nile.micrometer.executor.NileExecutor
 import tech.volkov.nile.micrometer.registry.NileScheduledRegistry.Companion.globalRegistry
+import tech.volkov.nile.micrometer.registry.NileScheduledTask
+import java.time.Duration
 import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 import java.util.concurrent.TimeUnit
 
 class TaskScheduler(
-    private val nileExecutor: NileExecutor
+    private val nileExecutor: NileExecutor,
+    private val defaultScrapeInterval: Duration
 ) {
 
     init {
@@ -29,7 +32,12 @@ class TaskScheduler(
         if (nextScrapeTime.isBefore(LocalDateTime.now())) {
             runCatching(block)
                 .also { logger.debug { "Updated metric [$name]" } }
-                .also { updateNextScrapeTime() }
+                .also {
+                    nextScrapeTime = LocalDateTime.now().plus(
+                        (scrapeInterval ?: defaultScrapeInterval).toMillis(),
+                        ChronoUnit.MILLIS
+                    )
+                }
                 .getOrThrow()
         }
     }
