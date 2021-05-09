@@ -6,8 +6,8 @@ import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_COR
 import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_KEEP_ALIVE_TIME
 import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_MAXIMUM_POOL_SIZE
 import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_QUEUE_CAPACITY
-import tech.volkov.nile.micrometer.scheduler.NileScheduler.Companion.DEFAULT_SCRAPE_INTERVAL
 import tech.volkov.nile.micrometer.task.TaskScheduler
+import tech.volkov.nile.micrometer.util.DEFAULT_SCRAPE_INTERVAL
 import java.time.Duration
 
 class NileScheduler private constructor(
@@ -59,7 +59,6 @@ class NileScheduler private constructor(
         private const val DEFAULT_MAXIMUM_POOL_SIZE = 6
         private const val DEFAULT_KEEP_ALIVE_TIME = 200L
         private const val DEFAULT_QUEUE_CAPACITY = 5
-        private val DEFAULT_SCRAPE_INTERVAL = Duration.ofMinutes(1)
 
         fun builder() = NileSchedulerBuilder()
 
