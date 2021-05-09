@@ -11,8 +11,8 @@ import tech.volkov.nile.micrometer.annotation.NileGauge
 import tech.volkov.nile.micrometer.annotation.NileTimer
 
 @RestController
-@RequestMapping("dog-facts")
-class NileMetricsController(
+@RequestMapping("dog-facts/annotation")
+class NileAnnotationController(
     private val dogFactService: DogFactService
 ) {
 
