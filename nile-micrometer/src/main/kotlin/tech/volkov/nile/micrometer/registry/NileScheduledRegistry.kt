@@ -6,9 +6,9 @@ internal class NileScheduledRegistry private constructor() {
         var globalRegistry = mutableMapOf<String, NileScheduledTask>()
             private set
 
-        fun addScheduledTask(name: String, block: NileScheduledTask.() -> Unit) {
-            globalRegistry[name] = NileScheduledTask(name).apply(block)
-        }
+        fun addScheduledTask(name: String, block: NileScheduledTask.() -> Unit) = NileScheduledTask(name)
+            .apply(block)
+            .also { globalRegistry[name] = it }
 
         fun clear() {
             globalRegistry = mutableMapOf()
