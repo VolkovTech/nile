@@ -4,8 +4,8 @@ import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import tech.volkov.nile.micrometer.annotation.NileDistributionSummary
-import tech.volkov.nile.micrometer.global.getTags
 import tech.volkov.nile.micrometer.metric.nileDistributionSummary
+import tech.volkov.nile.micrometer.util.getTags
 
 @Aspect
 class NileDistributionSummaryAspect {

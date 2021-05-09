@@ -1,4 +1,4 @@
-package tech.volkov.nile.micrometer.global
+package tech.volkov.nile.micrometer.util
 
 internal const val STATUS_TAG_NAME = "status"
 internal const val STATUS_SUCCESS = "SUCCESS"

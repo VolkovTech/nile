@@ -1,15 +1,13 @@
 package tech.volkov.nile.micrometer.registry
 
-import tech.volkov.nile.micrometer.context.ScheduledTask
-
 internal class NileScheduledRegistry private constructor() {
 
     companion object {
-        var globalRegistry = mutableMapOf<String, ScheduledTask>()
+        var globalRegistry = mutableMapOf<String, NileScheduledTask>()
             private set
 
-        fun addScheduledTask(name: String, block: ScheduledTask.() -> Unit) {
-            globalRegistry[name] = ScheduledTask(name).apply(block)
+        fun addScheduledTask(name: String, block: NileScheduledTask.() -> Unit) {
+            globalRegistry[name] = NileScheduledTask(name).apply(block)
         }
 
         fun clear() {

@@ -1,8 +1,8 @@
 package tech.volkov.nile.micrometer.scheduled
 
-import tech.volkov.nile.micrometer.global.DEFAULT_PERCENTILES
 import tech.volkov.nile.micrometer.metric.nileDistributionSummary
 import tech.volkov.nile.micrometer.registry.NileScheduledRegistry.Companion.addScheduledTask
+import tech.volkov.nile.micrometer.util.DEFAULT_PERCENTILES
 import java.time.Duration
 
 fun nileDistributionSummaryScheduled(

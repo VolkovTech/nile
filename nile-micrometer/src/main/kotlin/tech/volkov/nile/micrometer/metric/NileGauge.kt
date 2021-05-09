@@ -3,9 +3,9 @@ package tech.volkov.nile.micrometer.metric
 import io.micrometer.core.instrument.Gauge
 import io.micrometer.core.instrument.Metrics
 import io.micrometer.core.instrument.Tag
-import tech.volkov.nile.micrometer.global.STATUS_FAILURE
-import tech.volkov.nile.micrometer.global.STATUS_SUCCESS
-import tech.volkov.nile.micrometer.global.STATUS_TAG_NAME
+import tech.volkov.nile.micrometer.util.STATUS_FAILURE
+import tech.volkov.nile.micrometer.util.STATUS_SUCCESS
+import tech.volkov.nile.micrometer.util.STATUS_TAG_NAME
 import tech.volkov.nile.micrometer.util.runBlockAndCatchError
 
 private val gaugeMap: MutableMap<String, Double> = mutableMapOf()

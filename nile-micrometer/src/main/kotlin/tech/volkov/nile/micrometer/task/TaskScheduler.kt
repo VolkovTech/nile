@@ -2,7 +2,7 @@ package tech.volkov.nile.micrometer.task
 
 import kotlinx.coroutines.launch
 import mu.KLogging
-import tech.volkov.nile.micrometer.context.ScheduledTask
+import tech.volkov.nile.micrometer.registry.NileScheduledTask
 import tech.volkov.nile.micrometer.executor.NileExecutor
 import tech.volkov.nile.micrometer.registry.NileScheduledRegistry.Companion.globalRegistry
 import java.time.LocalDateTime
@@ -25,7 +25,7 @@ class TaskScheduler(
         nileExecutor.coroutineScope.launch { updateMetricIfNeeded(it.key, it.value) }
     }
 
-    private fun updateMetricIfNeeded(name: String, scheduledTask: ScheduledTask) = with(scheduledTask) {
+    private fun updateMetricIfNeeded(name: String, nileScheduledTask: NileScheduledTask) = with(nileScheduledTask) {
         if (nextScrapeTime.isBefore(LocalDateTime.now())) {
             block().let {
                 logger.debug { "Updated metric [$name] with value [$it]" }
