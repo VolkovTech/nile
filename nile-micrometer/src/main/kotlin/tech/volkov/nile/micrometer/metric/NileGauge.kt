@@ -8,7 +8,7 @@ import tech.volkov.nile.micrometer.util.STATUS_SUCCESS
 import tech.volkov.nile.micrometer.util.STATUS_TAG_NAME
 import tech.volkov.nile.micrometer.util.runBlockAndCatchError
 
-private val gaugeMap: MutableMap<String, Double> = mutableMapOf()
+private val gaugeMap: MutableMap<Int, Double> = mutableMapOf()
 
 fun nileGauge(
     name: String,
@@ -16,7 +16,7 @@ fun nileGauge(
     tags: Map<String, String> = emptyMap(),
     block: () -> Double = { 0.0 }
 ) = runBlockAndCatchError(block) { metricValue: Double?, isSuccess: Boolean ->
-    gaugeMap[name] = metricValue ?: 0.0
+    gaugeMap[(name + description + tags).hashCode()] = metricValue ?: 0.0
     buildGauge(name, description, tags, isSuccess)
 }
 
@@ -27,7 +27,7 @@ private fun buildGauge(
     isSuccess: Boolean = true
 ) {
     Gauge
-        .builder(name) { gaugeMap[name] ?: 0.0 }
+        .builder(name) { gaugeMap[(name + description + tags).hashCode()] ?: 0.0 }
         .description(description)
         .tags(tags.map { Tag.of(it.key, it.value) })
         .tag(STATUS_TAG_NAME, if (isSuccess) STATUS_SUCCESS else STATUS_FAILURE)

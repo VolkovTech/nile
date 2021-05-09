@@ -23,6 +23,7 @@ class WeatherServiceImpl(
             UriComponentsBuilder.fromHttpUrl(openWeatherProperties.baseUrl)
                 .queryParam("q", city)
                 .queryParam("appid", openWeatherProperties.apiKey)
+                .queryParam("units", openWeatherProperties.units)
                 .build()
                 .toUri()
         }

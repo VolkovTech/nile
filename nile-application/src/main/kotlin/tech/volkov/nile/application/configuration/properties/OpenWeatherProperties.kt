@@ -16,6 +16,15 @@ class OpenWeatherProperties {
     lateinit var apiKey: String
 
     /**
+     * Temperature is available in Fahrenheit, Celsius and Kelvin units.
+     *
+     * For temperature in Fahrenheit use units=imperial
+     * For temperature in Celsius use units=metric
+     * Temperature in Kelvin is used by default, no need to use units parameter in API call
+     */
+    var units: String = "metric"
+
+    /**
      * There is a requests limit set by open weather map API.
      * So, the update time for each city will depend on this property.
      */
