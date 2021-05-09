@@ -3,10 +3,10 @@ package tech.volkov.nile.micrometer.metric
 import io.micrometer.core.instrument.Metrics
 import io.micrometer.core.instrument.Tag
 import io.micrometer.core.instrument.Timer
-import tech.volkov.nile.micrometer.global.DEFAULT_PERCENTILES
-import tech.volkov.nile.micrometer.global.STATUS_FAILURE
-import tech.volkov.nile.micrometer.global.STATUS_SUCCESS
-import tech.volkov.nile.micrometer.global.STATUS_TAG_NAME
+import tech.volkov.nile.micrometer.util.DEFAULT_PERCENTILES
+import tech.volkov.nile.micrometer.util.STATUS_FAILURE
+import tech.volkov.nile.micrometer.util.STATUS_SUCCESS
+import tech.volkov.nile.micrometer.util.STATUS_TAG_NAME
 import tech.volkov.nile.micrometer.util.runBlockAndCatchError
 
 fun <T> nileTimer(

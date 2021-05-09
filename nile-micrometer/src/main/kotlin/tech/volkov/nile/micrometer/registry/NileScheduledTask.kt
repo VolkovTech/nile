@@ -1,9 +1,9 @@
-package tech.volkov.nile.micrometer.context
+package tech.volkov.nile.micrometer.registry
 
 import java.time.Duration
 import java.time.LocalDateTime
 
-data class ScheduledTask(
+data class NileScheduledTask(
     /**
      * Metric name separated by `_`, will be exposed to prometheus endpoint.
      */
