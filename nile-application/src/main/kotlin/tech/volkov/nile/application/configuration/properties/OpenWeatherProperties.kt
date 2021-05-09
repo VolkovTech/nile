@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component
 @ConfigurationProperties("weather")
 class OpenWeatherProperties {
     /**
+     * Base url for making API calls
+     */
+    lateinit var baseUrl: String
+    /**
      * API key retrieved from https://home.openweathermap.org/api_keys
      */
     lateinit var apiKey: String
@@ -18,15 +22,15 @@ class OpenWeatherProperties {
     var requestsLimitPerMinute: Int = 60
 
     /**
-     * Map represents country name against list of cities
+     * List of available cities
      */
-    var countriesCitiesMap: Map<String, List<String>> = emptyMap()
+    var cities: List<String> = emptyList()
 
     /**
      * Update interval for each metric, calculates as max number of requests allowed to call the API.
      */
     val updateInterval: Int
-        get() = SEC_IN_MINUTE / (requestsLimitPerMinute / countriesCitiesMap.values.flatten().size)
+        get() = SEC_IN_MINUTE / (requestsLimitPerMinute / cities.size)
 
     companion object {
         private const val SEC_IN_MINUTE = 60

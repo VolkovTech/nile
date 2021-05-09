@@ -7,31 +7,20 @@ server:
     context-path: /${spring.application.name}
 
 weather:
+  base-url: https://api.openweathermap.org/data/2.5/weather
   api-key: dfa9c4bfd52d6549908a828e0cec63b0
   requests-limit-per-minute: 60
-  countries-cities-map:
-    Russia:
-      - Moscow
-      - Saint Petersburg
-      - Sochi
-      - Novosibirsk
-      - Ulan-ude
-    USA:
-      - New York
-      - Los Angeles
-      - Miami
-    Germany:
-      - Berlin
-    France:
-      - Paris
-    United kingdom:
-      - London
-    Spain:
-      - Barcelona
-    China:
-      - Beijing
-    Australia:
-      - Sydney
+  cities:
+    - Moscow
+    - Berlin
+    - Paris
+    - London
+    - Rome
+    - Barcelona
+    - Washington
+    - Ottawa
+    - Beijing
+    - Canberra
 
 management:
   endpoints.web.exposure.include: '*'
