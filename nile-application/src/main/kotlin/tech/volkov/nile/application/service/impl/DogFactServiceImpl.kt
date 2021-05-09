@@ -34,15 +34,12 @@ class DogFactServiceImpl(
             name = "dog_facts_counter",
             description = "Counts how many request were executed to dog facts API",
             tags = mapOf("tagName" to "tagValue"),
-            isSuccess = isSuccess,
-            amount = { 10.0 }
-        )
+        ) { 10.0 }
 
         nileGauge(
             name = "dog_facts_gauge",
             description = "Current value of size of dogs facts",
-            tags = mapOf("tagName" to "tagValue"),
-            isSuccess = isSuccess
+            tags = mapOf("tagName" to "tagValue")
         ) {
             dogFacts.size.toDouble()
         }
@@ -51,8 +48,7 @@ class DogFactServiceImpl(
             name = "dog_facts_distribution_summary",
             unit = "short",
             description = "Distribution summary for dogs facts",
-            tags = mapOf("tagName" to "tagValue"),
-            isSuccess = isSuccess
+            tags = mapOf("tagName" to "tagValue")
         ) {
             dogFacts.size.toDouble()
         }
