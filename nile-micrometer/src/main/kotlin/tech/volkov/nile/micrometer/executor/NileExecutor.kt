@@ -14,7 +14,7 @@ class NileExecutor(
     corePoolSize: Int,
     maximumPoolSize: Int,
     keepAliveTime: Long,
-    queueCapacity: Int,
+    queueCapacity: Int
 ) {
 
     private val threadPoolExecutor = ThreadPoolExecutor(

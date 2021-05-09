@@ -42,7 +42,7 @@ class NileScheduler private constructor(
     queueCapacity: Int,
     /**
      * The time interval between each metrics collection, this value is used
-     * in case no [MetricContext.scrapeInterval] is specified.
+     * in case no [tech.volkov.nile.micrometer.registry.NileScheduledTask.scrapeInterval] is specified.
      *
      * Default value is [DEFAULT_SCRAPE_INTERVAL].
      */
@@ -51,7 +51,7 @@ class NileScheduler private constructor(
 
     init {
         NileExecutor(corePoolSize, maximumPoolSize, keepAliveTime, queueCapacity)
-            .also { TaskScheduler(it) }
+            .also { TaskScheduler(it, defaultScrapeInterval) }
     }
 
     companion object : KLogging() {

@@ -1,9 +1,7 @@
 package tech.volkov.nile.micrometer.registry
 
-import tech.volkov.nile.micrometer.util.DEFAULT_SCRAPE_INTERVAL
 import java.time.Duration
 import java.time.LocalDateTime
-import java.time.temporal.ChronoUnit
 
 data class NileScheduledTask(
     /**
@@ -23,11 +21,4 @@ data class NileScheduledTask(
      * The function that will run on schedule.
      */
     var block: () -> Any? = {}
-) {
-    fun updateNextScrapeTime() {
-        nextScrapeTime = LocalDateTime.now().plus(
-            (scrapeInterval ?: DEFAULT_SCRAPE_INTERVAL).toMillis(),
-            ChronoUnit.MILLIS
-        )
-    }
-}
+)
