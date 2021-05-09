@@ -2,7 +2,6 @@
 
 package tech.volkov.nile.application.service.impl
 
-import mu.KLogging
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.util.UriComponentsBuilder
@@ -14,28 +13,17 @@ class DogFactServiceImpl(
     private val webClient: WebClient
 ) : DogFactService {
 
-    override fun getFacts(number: Int): List<String> {
-        val dogFactsResponse = webClient
-            .get()
-            .uri {
-                UriComponentsBuilder.fromHttpUrl("https://dog-api.kinduff.com")
-                    .pathSegment("api/facts")
-                    .queryParam("number", number)
-                    .build()
-                    .toUri()
-            }
-            .exchangeToMono { it.toEntity(DogFact::class.java) }
-            .block()
-
-        return if (dogFactsResponse.statusCode.is2xxSuccessful) {
-            dogFactsResponse.body.facts.also {
-                logger.info { "Successfully received dog fact: [$it]" }
-            }
-        } else {
-            logger.error { "Failed to receive dog fact" }
-            emptyList()
+    override fun getFacts(number: Int): List<String> = webClient
+        .get()
+        .uri {
+            UriComponentsBuilder.fromHttpUrl("https://dog-api.kinduff.com")
+                .pathSegment("api/facts")
+                .queryParam("number", number)
+                .build()
+                .toUri()
         }
-    }
-
-    companion object : KLogging()
+        .exchangeToMono { it.toEntity(DogFact::class.java) }
+        .block()
+        .body
+        .facts
 }
