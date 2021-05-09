@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 data class CityWeather(
     val name: String,
-    val weather: Weather,
+    val weather: List<Weather>,
     val main: Main,
     val visibility: Int,
     val wind: Wind
