@@ -636,7 +636,7 @@ style:
     active: false
     acceptableDecimalLength: 5
   UnnecessaryAbstractClass:
-    active: true
+    active: false
     excludeAnnotatedClasses: ['dagger.Module']
   UnnecessaryAnnotationUseSiteTarget:
     active: false

@@ -22,14 +22,15 @@ class TaskScheduler(
     }
 
     private fun runUpdateMetrics() = globalRegistry.forEach {
-        nileExecutor.coroutineScope.launch { updateMetricIfNeeded(it.key, it.value) }
+        nileExecutor.coroutineScope.launch { updateMetricIfNeeded(it.value) }
     }
 
-    private fun updateMetricIfNeeded(name: String, nileScheduledTask: NileScheduledTask) = with(nileScheduledTask) {
+    private fun updateMetricIfNeeded(nileScheduledTask: NileScheduledTask) = with(nileScheduledTask) {
         if (nextScrapeTime.isBefore(LocalDateTime.now())) {
-            block().let {
-                logger.debug { "Updated metric [$name] with value [$it]" }
-            }
+            runCatching(block)
+                .also { logger.debug { "Updated metric [$name]" } }
+                .also { updateNextScrapeTime() }
+                .getOrThrow()
         }
     }
 
