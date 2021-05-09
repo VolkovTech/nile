@@ -32,14 +32,16 @@ class TaskScheduler(
         if (nextScrapeTime.isBefore(LocalDateTime.now())) {
             runCatching(block)
                 .also { logger.debug { "Updated metric [$name]" } }
-                .also {
-                    nextScrapeTime = LocalDateTime.now().plus(
-                        (scrapeInterval ?: defaultScrapeInterval).toMillis(),
-                        ChronoUnit.MILLIS
-                    )
-                }
+                .also { updateNextScrapeTime() }
                 .getOrThrow()
         }
+    }
+
+    private fun NileScheduledTask.updateNextScrapeTime() {
+        nextScrapeTime = LocalDateTime.now().plus(
+            (scrapeInterval ?: defaultScrapeInterval).toMillis(),
+            ChronoUnit.MILLIS
+        )
     }
 
     companion object : KLogging() {
