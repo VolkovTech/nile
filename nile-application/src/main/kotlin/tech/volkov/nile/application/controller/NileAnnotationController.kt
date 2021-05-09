@@ -1,6 +1,5 @@
 package tech.volkov.nile.application.controller
 
-import mu.KLogging
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -42,6 +41,4 @@ class NileAnnotationController(
         percentiles = [0.5, 0.75, 0.9, 0.95, 0.99]
     )
     fun getDogFacts() = dogFactService.getFacts()
-
-    companion object : KLogging()
 }
