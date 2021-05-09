@@ -14,9 +14,8 @@ class NileDistributionSummaryAspect {
     fun around(joinPoint: ProceedingJoinPoint): Any {
         val method = joinPoint.target.javaClass.getMethod(joinPoint.signature.name)
         val ds = method.getAnnotation(NileDistributionSummary::class.java)
-        val percentiles = ds.percentiles.toList()
 
-        return nileDistributionSummary(ds.name, ds.unit, ds.description, getTags(ds.tags), percentiles) {
+        return nileDistributionSummary(ds.name, ds.unit, ds.description, getTags(ds.tags), ds.percentiles.toList()) {
             (joinPoint.proceed() as? Double) ?: 0.0
         }
     }

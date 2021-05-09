@@ -12,5 +12,5 @@ fun nileGaugeScheduled(
     block: () -> Double
 ) = addScheduledTask(name) {
     this.scrapeInterval = scrapeInterval
-    value = { nileGauge(name, description, tags, block) }
+    this.block = { nileGauge(name, description, tags, block) }
 }

@@ -18,9 +18,9 @@ data class ScheduledTask(
      */
     var nextScrapeTime: LocalDateTime = LocalDateTime.now(),
     /**
-     * The function, by which the metric value will be extracted.
+     * The function that will run on schedule.
      */
-    var value: () -> Any? = {}
+    var block: () -> Any? = {}
 ) {
     fun updateNextScrapeTime() {
         nextScrapeTime = LocalDateTime.now().plus(scrapeInterval)

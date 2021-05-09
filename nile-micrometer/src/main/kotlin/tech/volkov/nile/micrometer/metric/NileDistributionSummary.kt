@@ -15,7 +15,7 @@ fun nileDistributionSummary(
     description: String = "",
     tags: Map<String, String> = emptyMap(),
     percentiles: List<Double> = DEFAULT_PERCENTILES,
-    block: () -> Double = { 1.0 }
+    block: () -> Double = { 0.0 }
 ) = runBlockAndCatchError(block) { metricValue: Double?, isSuccess: Boolean ->
     DistributionSummary
         .builder(name)

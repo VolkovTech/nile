@@ -27,7 +27,7 @@ class TaskScheduler(
 
     private fun updateMetricIfNeeded(name: String, scheduledTask: ScheduledTask) = with(scheduledTask) {
         if (nextScrapeTime.isBefore(LocalDateTime.now())) {
-            value().let {
+            block().let {
                 logger.debug { "Updated metric [$name] with value [$it]" }
             }
         }

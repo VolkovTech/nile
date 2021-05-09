@@ -13,5 +13,5 @@ fun <T> nileCounterScheduled(
     block: () -> T
 ) = addScheduledTask(name) {
     this.scrapeInterval = scrapeInterval
-    value = { nileCounter(name, description, tags, { amount }) { block } }
+    this.block = { nileCounter(name, description, tags, amount) { block } }
 }
