@@ -16,9 +16,11 @@ data class CityWeather(
 
     data class Main(
         val temp: Double,
-        @JsonProperty("feelsLike")
+        @JsonProperty("feels_like")
         val feelsLike: Double,
+        @JsonProperty("temp_min")
         val tempMin: Double,
+        @JsonProperty("temp_max")
         val tempMax: Double,
         val pressure: Int,
         val humidity: Int
