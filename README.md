@@ -11,7 +11,7 @@ Nile project contains of 3 modules:
 
 [`nile-anomaly`](#nile-anomaly)
   - analyzing business time series on anomalies
-  - exporting anomalies metrics 
+  - exporting anomalies metrics
 
 [`nile-grafana`](#nile-grafana)
   - Kotlin DSL for building grafana dashboards (*grafana as a code*)
