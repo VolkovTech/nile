@@ -22,7 +22,11 @@ class WeatherMonitoringConfiguration(
         openWeatherProperties.cities
             .map { weatherService.getCurrentWeather(it) }
             .forEach {
-                nileGauge(name = "temperature", tags = mapOf("city" to it.name)) { it.main.temp }
+                nileGauge(
+                    name = "temperature",
+                    description = "Celsius temperatures in cities all around the world",
+                    tags = mapOf("city" to it.name)
+                ) { it.main.temp }
                 nileGauge(name = "feels_like", tags = mapOf("city" to it.name)) { it.main.feelsLike }
                 nileGauge(name = "temperature_min", tags = mapOf("city" to it.name)) { it.main.tempMin }
                 nileGauge(name = "temperature_max", tags = mapOf("city" to it.name)) { it.main.tempMax }
