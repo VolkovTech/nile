@@ -16,7 +16,7 @@ class WeatherMonitoringConfiguration(
 
     @NileScheduledMetric
     fun temperature() = nileScheduled(
-        name = "temperature",
+        name = "weather",
         scrapeInterval = Duration.ofSeconds(5)
     ) {
         openWeatherProperties.cities
@@ -41,7 +41,9 @@ class WeatherMonitoringConfiguration(
                 )
 
                 nileGauge(name = "wind_speed", tags = mapOf("city" to it.name)) { it.wind.speed }
-                nileGauge(name = "visibility", tags = mapOf("city" to it.name)) { it.visibility.toDouble() }
+                nileGauge(name = "visibility", tags = mapOf("city" to it.name)) {
+                    it.visibility.toDouble()
+                }
             }
     }
 }
