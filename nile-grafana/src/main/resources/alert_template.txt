@@ -1,0 +1,39 @@
+"alert": {
+  "alertRuleTags": {},
+  "conditions": [
+    {
+      "evaluator": {
+        "params": [
+          %s
+        ],
+        "type": "gt"
+      },
+      "operator": {
+        "type": "and"
+      },
+      "query": {
+        "params": [
+          "A",
+          "%s",
+          "now"
+        ]
+      },
+      "reducer": {
+        "params": [],
+        "type": "avg"
+      },
+      "type": "query"
+    }
+  ],
+  "executionErrorState": "alerting",
+  "for": "%s",
+  "frequency": "%s",
+  "handler": 1,
+  "name": "%s",
+  "noDataState": "ok",
+  "notifications": [
+    {
+      "uid": "hBxG383Mk"
+    }
+  ]
+},
