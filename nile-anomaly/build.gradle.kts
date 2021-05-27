@@ -7,7 +7,7 @@ tasks.jar {
 }
 
 dependencies {
-    implementation(project(":nile-micrometer"))
+    implementation(project(":nile-grafana"))
 
     implementation(group = "org.nield", name = "kotlin-statistics", version = "1.2.1")
 }

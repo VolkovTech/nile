@@ -22,6 +22,9 @@ weather:
     - Beijing
     - Canberra
 
+nile:
+  grafana:
+    api-key: eyJrIjoieHZDVldpODE2U1BTMXJ5U1hGOWtQaUY3ZG5lV2NzT20iLCJuIjoibWFpbiIsImlkIjoxfQ==
 
 management:
   endpoints.web.exposure.include: '*'

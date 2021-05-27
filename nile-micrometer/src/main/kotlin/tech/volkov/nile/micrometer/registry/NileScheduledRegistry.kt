@@ -1,5 +1,7 @@
 package tech.volkov.nile.micrometer.registry
 
+import tech.volkov.nile.micrometer.model.NileScheduledTask
+
 internal class NileScheduledRegistry private constructor() {
 
     companion object {
@@ -9,9 +11,5 @@ internal class NileScheduledRegistry private constructor() {
         fun addScheduledTask(name: String, block: NileScheduledTask.() -> Unit) = NileScheduledTask(name)
             .apply(block)
             .also { globalRegistry[name] = it }
-
-        fun clear() {
-            globalRegistry = mutableMapOf()
-        }
     }
 }
