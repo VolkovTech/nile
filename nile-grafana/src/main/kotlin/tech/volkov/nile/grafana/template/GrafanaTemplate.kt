@@ -204,7 +204,7 @@ class GrafanaTemplate private constructor() {
               "noDataState": "ok",
               "notifications": [
                 {
-                  "uid": "hBxG383Mk"
+                  "uid": "pLAHDwqMk"
                 }
               ]
             }

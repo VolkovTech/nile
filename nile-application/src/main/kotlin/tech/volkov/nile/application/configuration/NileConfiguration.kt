@@ -35,7 +35,11 @@ class NileConfiguration(
     }
 
     @NileScheduledMetric
-    fun timer() = nileTimerScheduled("api_timer_scheduled") {
+    fun timer() = nileTimerScheduled(
+        "response_time",
+        description = "Response time from external API call",
+        scrapeInterval = Duration.ofSeconds(2)
+    ) {
         mockApiService.getNumber()
     }
 
@@ -47,12 +51,5 @@ class NileConfiguration(
     @NileScheduledMetric
     fun distributionSummary() = nileDistributionSummaryScheduled("api_distribution_summary_scheduled") {
         mockApiService.getNumber()
-    }
-
-    private var x = 0.0
-
-    @NileScheduledMetric
-    fun sin() = nileGaugeScheduled("sin", scrapeInterval = Duration.ofSeconds(15)) {
-        sin(x).also { x += 0.25 }
     }
 }

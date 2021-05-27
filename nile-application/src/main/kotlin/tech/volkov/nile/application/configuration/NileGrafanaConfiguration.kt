@@ -17,6 +17,11 @@ class NileGrafanaConfiguration {
             title = "Whether Monitoring Dashboard"
         }
 
+        variable {
+            name = "city"
+            query = "label_values(temperature, city)"
+        }
+
         panel {
             title = "Temperature"
             expression = "sum(temperature{city=~\\\"\$city\\\"}) by (city)"
@@ -53,29 +58,23 @@ class NileGrafanaConfiguration {
             grid = Grid(x = 12, y = 8)
         }
 
-        panel {
-            title = "sin"
-            expression = "sum(sin)"
-            legendFormat = "sin"
+         panel {
+            title = "Response Time"
+            expression = "sum(increase(response_time_seconds_sum[1m]))/sum(increase(response_time_seconds_count[1m]))"
+            legendFormat = "response time"
             type = PanelType.GRAPH
             unit = Unit.SHORT
             grid = Grid(x = 0, y = 16)
-            minStep = "15s"
-            bars = false
             lines = true
-
+            bars = false
+            minStep = "15s"
             alert = Alert(
-                name = "Sin Alert",
-                above = 0.75,
-                offset = "10s",
-                evaluateFor = "10s",
-                evaluateEvery = "10s"
+                name = "Response Time",
+                above = 2.0,
+                offset = "15s",
+                evaluateEvery = "15s",
+                evaluateFor = "15s"
             )
-        }
-
-        variable {
-            name = "city"
-            query = "label_values(temperature, city)"
         }
     }
 }
