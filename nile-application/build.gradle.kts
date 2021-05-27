@@ -8,4 +8,6 @@ plugins {
 
 dependencies {
     api(project(":nile-micrometer"))
+    api(project(":nile-grafana"))
+    api(project(":nile-anomaly"))
 }

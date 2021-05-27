@@ -7,5 +7,5 @@ tasks.jar {
 }
 
 dependencies {
-    implementation(project(":nile-anomaly"))
+    implementation(project(":nile-micrometer"))
 }

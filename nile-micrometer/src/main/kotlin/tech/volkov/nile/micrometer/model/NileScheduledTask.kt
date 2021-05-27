@@ -1,4 +1,4 @@
-package tech.volkov.nile.micrometer.registry
+package tech.volkov.nile.micrometer.model
 
 import java.time.Duration
 import java.time.LocalDateTime

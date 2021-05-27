@@ -4,7 +4,7 @@ import kotlinx.coroutines.launch
 import mu.KLogging
 import tech.volkov.nile.micrometer.executor.NileExecutor
 import tech.volkov.nile.micrometer.registry.NileScheduledRegistry.Companion.globalRegistry
-import tech.volkov.nile.micrometer.registry.NileScheduledTask
+import tech.volkov.nile.micrometer.model.NileScheduledTask
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit

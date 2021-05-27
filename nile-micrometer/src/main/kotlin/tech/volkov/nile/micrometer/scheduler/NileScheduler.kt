@@ -42,7 +42,7 @@ class NileScheduler private constructor(
     queueCapacity: Int,
     /**
      * The time interval between each metrics collection, this value is used
-     * in case no [tech.volkov.nile.micrometer.registry.NileScheduledTask.scrapeInterval] is specified.
+     * in case no [tech.volkov.nile.micrometer.model.NileScheduledTask.scrapeInterval] is specified.
      *
      * Default value is [DEFAULT_SCRAPE_INTERVAL].
      */

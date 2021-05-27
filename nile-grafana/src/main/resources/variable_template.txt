@@ -1,0 +1,35 @@
+{
+    "allValue": ".*",
+    "current": {
+        "selected": true,
+        "tags": [],
+        "text": [
+            "All"
+        ],
+        "value": [
+            "$__all"
+        ]
+    },
+    "datasource": null,
+    "definition": "%s",
+    "description": null,
+    "error": null,
+    "hide": 0,
+    "includeAll": true,
+    "label": null,
+    "multi": true,
+    "name": "%s",
+    "query": {
+        "query": "%s",
+        "refId": "StandardVariableQuery"
+    },
+    "refresh": 0,
+    "regex": "",
+    "skipUrlSync": false,
+    "sort": 0,
+    "tagValuesQuery": "",
+    "tags": [],
+    "tagsQuery": "",
+    "type": "query",
+    "useTags": false
+}
