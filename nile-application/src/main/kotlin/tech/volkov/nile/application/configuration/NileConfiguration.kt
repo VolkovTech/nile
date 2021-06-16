@@ -10,7 +10,6 @@ import tech.volkov.nile.micrometer.scheduled.nileGaugeScheduled
 import tech.volkov.nile.micrometer.scheduled.nileTimerScheduled
 import tech.volkov.nile.micrometer.scheduler.NileScheduler
 import java.time.Duration
-import kotlin.math.sin
 
 @Configuration
 class NileConfiguration(
